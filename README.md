@@ -1,10 +1,10 @@
 # SOEN287project
 
 ## Members:
-Chris Anglin 40216346
-Lyne
-Azmain
-Nav
+Chris Anglin 40216346  
+Lyne  
+Azmain  
+Nav  
 
 ## Features Implemented:
 
