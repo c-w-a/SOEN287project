@@ -2,7 +2,7 @@
 
 ## Members:
 Chris Anglin 40216346  
-Lyne  
+Lyne Seddaoui 40252125
 Azmain  
 Nav  
 
