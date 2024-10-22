@@ -1,15 +1,15 @@
 # SOEN287project
 
-##Members:
+## Members:
 Chris Anglin 40216346
 Lyne
 Azmain
 Nav
 
-##Features Implemented:
+## Features Implemented:
 
-##Features To Be Implemented For Next Deliverable:
+## Features To Be Implemented For Next Deliverable:
 
-##Install Guide:
+## Install Guide:
 
-##User Guide:
+## User Guide:
