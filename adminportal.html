@@ -1,1 +1,66 @@
 
+<!DOCTYPE html>
+
+<html lang = "en">
+
+<head>
+    <title> My Admin Profile </title>
+    <meta charset = "utf-8"/>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+  <a href = "homepage.html">
+     Go Back
+  </a>
+    <h1> My Admin Profile</h1>
+  <div>
+    <img src = "https://cdn1.iconfinder.com/data/icons/heroicons-solid/20/user-circle-1024.png"
+          alt = "admin" width = "50" height = "50" />
+
+    <h2>
+      <span id="thisFirstname"></span>
+      <span id="thisLastname"></span>
+    </h2>
+  </div>
+
+<div>
+  <h3>Admin Details</h3>
+  <p><strong>Username:</strong> <span id="thisUsername"></span>
+  <br>
+  <strong>Password:</strong> <span id="thisPassword">********</span>
+  </p>
+  <a href = "#">
+    Edit Profile
+  </a>
+  <a href = "#">
+    Delete Profile
+  </a>
+  <br>
+  <br>
+
+</div>
+
+<div>
+  <button onclick = "logout()">Logout</button>
+</div>
+
+  <script>
+    let firstname = localStorage.getItem('firstname');
+    let lastname = localStorage.getItem('lastname');
+    let username = localStorage.getItem('username');
+    let password = localStorage.getItem('password');
+    
+    document.getElementById('thisFirstname').textContent = firstname;
+    document.getElementById('thisLastname').textContent = lastname;
+    document.getElementById('thisUsername').textContent = username;
+    document.getElementById('thisPassword').textContent = password;
+
+    function logout()
+    {
+      localStorage.clear();
+      window.location.href = 'homepage.html'
+    }
+  </script>
+
+</body>
