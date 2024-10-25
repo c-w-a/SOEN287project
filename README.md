@@ -3,7 +3,7 @@
 ## Members:
 Chris Anglin 40216346  
 Lyne Seddaoui 40252125
-Azmain  
+MD Azmain Jashim 40228746
 Nav  
 
 ## Features Implemented:
