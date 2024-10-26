@@ -1,9 +1,10 @@
-
 <!DOCTYPE html>
 <html lang = "en">
 <head>
     <title> My Profile </title>
     <meta charset = "utf-8"/>
+    <link rel="stylesheet" href="css/styles.css">
+
 </head>
 <body>
   <a href = "homepage.html">
@@ -14,23 +15,16 @@
     <img src = "https://cdn1.iconfinder.com/data/icons/heroicons-solid/20/user-circle-1024.png"
           alt = "user" width = "50" height = "50" />
 
-    <p><h2>
-      <span id="thisFirstname"></span>
-      <span id="thisLastname"></span>
-    </h2></p>
+    <h2><span id="userName"></span></h2>
   </div>
 
 <div>
   <h3>User Details</h3>
-  <p><strong>Email:</strong> <span id="thisEmail"></span></p>
-  <p><strong>Phone:</strong> <span id="thisPhone"></span></p>
-  <p><strong>Address:</strong> <span id="thisAddress"></span></p>
-  <a href = "">
-    Edit Profile
-  </a>
-  <br>
-  <br>
-
+  <p><strong>Email:</strong> <span id="userEmail"></span></p>
+  <p><strong>Phone:</strong> <span id="userPhone"></span></p>
+  <p><strong>Address:</strong> <span id="userAddress"></span></p>
+  <button onclick="editProfile()">Edit Profile</button>
+  <button onclick="deleteAccount()">Delete Account</button>
 </div>
 
 <div>
@@ -45,29 +39,54 @@
   </a>
   <br>
   <br>
-  <button onclick = "logout()">Logout</button>
+  <button onclick = "logoutUser()">Logout</button>
 
 </div>
 
   <script>
-    let email = localStorage.getItem('email');
-    let firstname = localStorage.getItem('firstname');
-    let lastname = localStorage.getItem('lastname');
-    let address = localStorage.getItem('address');
-    let phone = localStorage.getItem('phone');
-    let password = localStorage.getItem('password');
-    
-    
-    document.getElementById('thisEmail').textContent = email;
-    document.getElementById('thisFirstname').textContent = firstname;
-    document.getElementById('thisLastname').textContent = lastname;
-    document.getElementById('thisAddress').textContent = address;
-    document.getElementById('thisPhone').textContent = phone;
-    document.getElementById('thisPassword').textContent = password;
 
-    function logout()
+    const email = localStorage.getItem('loggedIn');
+    const userArr = JSON.parse(localStorage.getItem('userArr'));
+            if (userArr === null) 
+            {
+                userArr = [];
+            }
+    const thisUser = userArr.find(user => user.email === email);
+
+    document.getElementById('userEmail').textContent = email;
+    document.getElementById('userName').textContent = thisUser.name;
+    document.getElementById('userAddress').textContent = thisUser.address;
+    document.getElementById('userPhone').textContent = thisUser.phone;
+    document.getElementById('userPassword').textContent = thisUser.password;
+
+    function editProfile() {
+            const newName = prompt("Enter new name", thisUser.name);
+            const newAddress = prompt("Enter new address", thisUser.address);
+            const newPhone = prompt("Enter new phone number", thisUser.phone);
+            
+            if (newName && newAddress && newPhone) {
+                thisUser.name = newName;
+                thisUser.address = newAddress;
+                thisUser.phone = newPhone;
+                localStorage.setItem('userArr', JSON.stringify(userArr));
+                location.reload();
+            }
+        }
+
+        function deleteAccount() 
+        {
+            if (confirm("Are you sure you want to delete your account? This action cannot be undone.")) {
+                const updatedUserArr = userArr.filter(user => user.email !== email);
+                localStorage.setItem('userArr', JSON.stringify(updatedUserArr));
+                localStorage.removeItem('loggedIn');
+                window.location.href = 'homepage.html';
+            }
+        }
+
+
+    function logoutUser()
     {
-      localStorage.clear();
+      localStorage.removeItem('loggedIn');
       window.location.href = 'homepage.html'
     }
 
