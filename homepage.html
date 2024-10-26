@@ -5,8 +5,41 @@
     <title>Home Page</title>
 </head>
 <body>
-    <button id="loginstatus"></button>
+    <header>
+        <button id="loginstatus"></button>
+    </header>
 
-    <script src = "button.js"></script>
+
+
+
+
+
+
+
+    
+   <script>
+window.onload = function() 
+{
+    const loggedIn = localStorage.getItem('loggedIn');
+
+    if (loggedIn) 
+        {
+        loginstatus.textContent = 'My Profile';
+        loginstatus.onclick = function() 
+        {
+            window.location.href = 'clientportal.html'; 
+        };
+    } 
+    else
+     {
+        loginstatus.textContent = 'Log In';
+        loginstatus.onclick = function() 
+        {
+            window.location.href = 'login.html'; 
+        };
+    }
+};
+
+    </script>
 
 </body>
