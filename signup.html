@@ -3,33 +3,28 @@
 <head>
     <title> Create an account </title>
     <meta charset = "utf-8"/>
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 
 <body>
-
+    <div class = "container">
     <h2> Create an account</h2>
 
-    <form id="signupForm">
+    <form id="signupForm" onsubmit="handleSubmit(event)">
     <label>
-        Email
+        Email Address
         <br>
-        <input type = "email" id = email name = "email" required/>
+        <input type = "email" id = "email" name = "email" required/>
     </label>
     <br>
     <label>
-        First Name
+        Full Name
         <br>
-        <input type = "text"  id = "firstname" name = "firstname" required/>
+        <input type = "text"  id = "name" name = "name" required/>
     </label>
     <br>
     <label>
-        Last Name
-        <br>
-        <input type = "text" id = "lastname" name = "lastname" required/>
-    </label>
-    <br>
-    <label>
-        Full Address
+        Address
         <br>
         <input type = "text" id = "address" name = "address" size = "70" required/>
     </label>
@@ -46,12 +41,11 @@
         <input type = "text" id = "phone" name = "phone" required/>
     </label>
     <br>
-    <br>
     <input type = "submit"
                 value = "Create your account"/>
 
 </form>
-<br><br>
+<br>
 <div>
     <span>Already have an account? </span>
     <a href = "login.html">
@@ -59,24 +53,32 @@
     </a>
  </div>
 
+</div>
  <script>
-     document.getElementById('signupForm').onsubmit = function(event) 
-{
-    event.preventDefault();
+
+    let user = {};
+
+ function handleSubmit(event)
+ {
+    event.preventDefault(); 
     
-    let email = document.getElementById('email').value;
-    let firstname = document.getElementById('firstname').value;
-    let lastname = document.getElementById('lastname').value;
-    let address = document.getElementById('address').value;
-    let password = document.getElementById('password').value;
-    let phone = document.getElementById('phone').value;
+    user.email = document.getElementById('email').value;
+    user.name = document.getElementById('name').value;
+    user.address = document.getElementById('address').value;
+    user.password = document.getElementById('password').value;
+    user.phone = document.getElementById('phone').value;
     
-    localStorage.setItem('email', email);
-    localStorage.setItem('firstname', firstname);
-    localStorage.setItem('lastname', lastname);
-    localStorage.setItem('address', address);
-    localStorage.setItem('password', password);
-    localStorage.setItem('phone', phone);
+    let userArr = JSON.parse(localStorage.getItem('userArr'));
+            if (userArr === null) 
+            {
+                userArr = [];
+            }
+   
+    userArr.push(user);
+
+    localStorage.setItem('userArr',JSON.stringify(userArr));
+
+    localStorage.setItem('loggedIn',user.email);
     
     window.location.href = 'homepage.html';
   }
