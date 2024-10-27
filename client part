@@ -1,0 +1,72 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Company name</title>
+        <style>
+            header{background-color: rgb(0, 119, 255);padding: 30px;text-align: center;}
+            .pic{background-image: url(https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.istockphoto.com%2Fphotos%2Fcleaning-service&psig=AOvVaw1FAgyFYqFbSThN9IFfBjhH&ust=1729522189395000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCKDutrOanYkDFQAAAAAdAAAAABAK);background-size:cover;}
+             #center{display: flex;
+                     justify-content: center;
+                     align-items: center;
+                     text-align: center;}
+        </style>
+    </head>
+    <body>
+       <header> <h1><i>Service Company name</i></h1> </header></body> </html> 
+       <hr/> 
+       <h4 style="text-align: center;font-family: serif;">
+        <pre>
+       service1   |   service2   |   service3   |   service4   |    service5 </h4>
+        </pre>
+       <hr/>
+       <div id="div1" >
+        <p><h2 id="center">Welcome message</h2></p>
+        <p style="text-align:center;">Service Company description</h4>
+        <dl>
+            <dt>service1</dt> 
+            <dd>service description1</dl>
+            <dt>service2</dt>
+            <dd>service description2</dl>
+            <dt>service3</dt>
+            <dd>service description3</dl>
+            <dt>service4</dt>
+            <dd>service description4</dl>
+            <dt>service5</dt>
+            <dd>service description5</dd>
+
+        </dl>
+            <h4>To avail a service: </h4>
+            <ol>
+                <li>step1</li>
+                <li>step2</li>
+                <li>step3</li>
+                <li>step4</li>
+            </ol><br/>
+          <a href="">Sign in to your account</a>
+
+          <h3> <a href="">Sign up for an account</a> </h3>
+          <h2 id="center">WHY CHOOSE US ?</h2>
+
+        <div id="center">
+            <br/>
+            <ul>
+                <li>reason1</li>
+                <li>reason2</li>
+                <li>reason3</li>
+                <li>reason4</li>
+                <li>reason5</li>
+                <li>reason6</li>
+                <li>reason7</li>
+            </ul>
+        </div>
+
+        <footer style="text-align: left;background-color:lightblue;">
+            <p>email</p>
+            <p>contact number</p>
+            <p>All rights reserved</p>
+            
+        </footer>
+
+       
+    </body>
+</html>
