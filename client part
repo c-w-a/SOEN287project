@@ -1,7 +1,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>Company name</title>
+        <title id="web">company name</title>
         <style>
             header{background-color: rgb(0, 119, 255);padding: 30px;text-align: center;}
             .pic{background-image: url(https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.istockphoto.com%2Fphotos%2Fcleaning-service&psig=AOvVaw1FAgyFYqFbSThN9IFfBjhH&ust=1729522189395000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCKDutrOanYkDFQAAAAAdAAAAABAK);background-size:cover;}
@@ -12,9 +12,9 @@
         </style>
     </head>
     <body>
-       <header> <h1><i>Service Company name</i></h1> </header></body> </html> 
+       <header id="header"> <h1><i>Service Company name</i></h1> </header></body> </html> 
        <hr/> 
-       <h4 style="text-align: center;font-family: serif;">
+       <h4 id="services" style="text-align: center;font-family: serif;">
         <pre>
        service1   |   service2   |   service3   |   service4   |    service5 </h4>
         </pre>
@@ -23,50 +23,93 @@
         <p><h2 id="center">Welcome message</h2></p>
         <p style="text-align:center;">Service Company description</h4>
         <dl>
-            <dt>service1</dt> 
-            <dd>service description1</dl>
-            <dt>service2</dt>
-            <dd>service description2</dl>
-            <dt>service3</dt>
-            <dd>service description3</dl>
-            <dt>service4</dt>
-            <dd>service description4</dl>
-            <dt>service5</dt>
-            <dd>service description5</dd>
+            <dt id="s1t">service1</dt> 
+            <dd id="s1d">service description1</dl>
+            <dt id="s2t">service2</dt>
+            <dd id="s2d">service description2</dl>
+            <dt id="s3t">service3</dt>
+            <dd id="s3d">service description3</dl>
+            <dt id="s4t">service4</dt>
+            <dd id="s4d">service description4</dl>
+            <dt id="s5t">service5</dt>
+            <dd id="s5d">service description5</dd>
 
         </dl>
-            <h4>To avail a service: </h4>
+            <h4 id="lh">To avail a service: </h4>
             <ol>
-                <li>step1</li>
-                <li>step2</li>
-                <li>step3</li>
-                <li>step4</li>
+                <li id="s1">step1</li>
+                <li id="s2">step2</li>
+                <li id="s3">step3</li>
+                <li id="s4">step4</li>
             </ol><br/>
           <a href="">Sign in to your account</a>
 
-          <h3> <a href="">Sign up for an account</a> </h3>
+          <h3 > <a href="">Sign up for an account</a> </h3>
           <h2 id="center">WHY CHOOSE US ?</h2>
 
         <div id="center">
             <br/>
             <ul>
-                <li>reason1</li>
-                <li>reason2</li>
-                <li>reason3</li>
-                <li>reason4</li>
-                <li>reason5</li>
-                <li>reason6</li>
-                <li>reason7</li>
+                <li id="r1">reason1</li>
+                <li id="r2">reason2</li>
+                <li id="r3">reason3</li>
+                <li id="r4">reason4</li>
+                <li id="r5">reason5</li>
+                <li id="r6">reason6</li>
+                <li id="r7">reason7</li>
             </ul>
         </div>
 
         <footer style="text-align: left;background-color:lightblue;">
-            <p>email</p>
-            <p>contact number</p>
-            <p>All rights reserved</p>
+            <p id="e">email</p>
+            <p id="cn">contact number</p>
+            <p id="als">All rights reserved</p>
             
         </footer>
+        <script>
+            const a=document.getElementbyId("web").innerHTML="";
+            const b=document.getElementbyId("header").innerHTML="";
+            const c=document.getElementbyId("services").innerHTML="";
+            const d=document.getElementbyId("s1t").innerHTML="";
+            const e=document.getElementbyId("s1d").innerHTML="";
+            const f=document.getElementbyId("s2t").innerHTML="";
+            const g=document.getElementbyId("s2d").innerHTML="";
+            const h=document.getElementbyId("s3t").innerHTML="";
+            const i=document.getElementbyId("s3d").innerHTML="";
+            const k=document.getElementbyId("s4t").innerHTML="";
+            const l=document.getElementbyId("s4d").innerHTML="";
+            const m=document.getElementbyId("s5t").innerHTML="";
+            const n=document.getElementbyId("s5d").innerHTML="";
+            const o=document.getElementbyId("lh").innerHTML="";
+            const p=document.getElementbyId("s1").innerHTML="";
+            const q=document.getElementbyId("s2").innerHTML="";
+            const r=document.getElementbyId("s3").innerHTML="";
+            const s=document.getElementbyId("s4").innerHTML="";
+            const t=document.getElementbyId("r1").innerHTML="";
+            const u=document.getElementbyId("r2").innerHTML="";
+            const v=document.getElementbyId("r3").innerHTML="";
+            const w=document.getElementbyId("r4").innerHTML="";
+            const x=document.getElementbyId("r5").innerHTML="";
+            const y=document.getElementbyId("r6").innerHTML="";
+            const z=document.getElementbyId("r7").innerHTML="";
+            const j=document.getElementbyId("e").innerHTML="";
+            const ss=document.getElementbyId("cn").innerHTML="";
+            const as=document.getElementbyId("als").innerHTML="";
+            var he=document.head();
+            var bod=document.body();
+            var tit=ducument.title();
+            var url=ducument.URL();
+            var letpic=ducument.images();
+            var jj=document.createElement();
+
+             
+            
+
+        </script>
 
        
     </body>
 </html>
+       
+
+        
