@@ -18,49 +18,55 @@
     <img src = "https://cdn1.iconfinder.com/data/icons/heroicons-solid/20/user-circle-1024.png"
           alt = "admin" width = "50" height = "50" />
 
-    <h2>
-      <span id="thisFirstname"></span>
-      <span id="thisLastname"></span>
-    </h2>
-  </div>
+      <body>
+          <div class = "container">
+              <h2> Log in </h2>
+              <form id="loginForm" onsubmit="handleLogin(event)">
+                 <label>
+                    Email Address
+                    <br>
+                    <input type = "email" id = "email" name = "email" required/>
+                </label>
+                <br><br>
+                <label>
+                    Password
+                    <br>
+                    <input type = "password" id = "password" name = "password" required/>
+                </label>
+                <br><br>
+                <input type = "submit" value = "Log in"/>
+        </form>
+            <br>
+        
+            <span>Don't have an account? </span>
+            <a href = "signup.html">
+                Sign up
+               </a>
+            </div>
 
-<div>
-  <h3>Admin Details</h3>
-  <p><strong>Username:</strong> <span id="thisUsername"></span>
-      <input type = "text" name = "Username" />
-  <br>
-  <strong>Password:</strong> <span id="thisPassword">********</span>
-      <input type = "text" name = "Password" />
-    <br>
-    <br>
   </p>
-  <a href = "adminSignIn.html">
-    Sign In
-  <br>
-  <br>
-
+  
+  
 </div>
 
-<div>
-  <button onclick = "logout()">Logout</button>
-</div>
-
-  <script>
-    let firstname = localStorage.getItem('firstname');
-    let lastname = localStorage.getItem('lastname');
-    let username = localStorage.getItem('username');
-    let password = localStorage.getItem('password');
-    
-    document.getElementById('thisFirstname').textContent = firstname;
-    document.getElementById('thisLastname').textContent = lastname;
-    document.getElementById('thisUsername').textContent = username;
-    document.getElementById('thisPassword').textContent = password;
-
-    function logout()
-    {
-      localStorage.clear();
-      window.location.href = 'homepage.html'
-    }
-  </script>
-
+<script>
+function handleLogin(event)
+{
+    event.preventDefault();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const userArr = JSON.parse(localStorage.getItem('userArr')) || [];
+            const thisUser = userArr.find(user => user.email === email && user.password === password);
+    if (thisUser) 
+        {
+            localStorage.setItem('loggedIn', email);
+            window.location.href = 'adminSignIn.html';
+        } 
+    else 
+        {
+                alert('Invalid email or password. Please try again.')
+        }
+}
+</script>
 </body>
+      </body>
