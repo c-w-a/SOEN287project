@@ -4,7 +4,7 @@
 Chris Anglin 40216346  
 Lyne Seddaoui 40252125  
 MD Azmain Jashim 40228746  
-Nav  
+Navpreet Nandra 40213630
 
 ## Features Implemented:
 
