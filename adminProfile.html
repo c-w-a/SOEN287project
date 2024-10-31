@@ -5,7 +5,7 @@
     <meta charset = "utf-8"/>
     <link rel="stylesheet" href="css/styles.css">
 </head>
-    <a href = "index.html">
+    <a href = "adminSignIn.html">
         Go Back
     </a>
 <h1> My Admin Profile</h1>
@@ -21,7 +21,7 @@
         <p><strong>Phone Number:</strong> <span id="businessPhone"> </span></p>
         <p><strong>Address:</strong> <span id="businessAddress"></span></p>
         <button onclick="editProfile()">Edit Profile</button>
-        <button onclick="deleteAccount()">Delete Account</button>
+
 <script>
     <!--code inspired from Lyne---> 
 
@@ -56,11 +56,5 @@
             location.reload();        }
     }
 
-    function deleteAccount(){
-        if(confirm("Are you sure you want to delete your admin account? This action cannot be undone.")){
-            localStorage.clear();
-            window.location.href = 'index.html';
-        }
-    }
 
 </script>
