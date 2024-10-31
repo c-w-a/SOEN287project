@@ -5,11 +5,28 @@
     </head>
     <body>
         <h3>Cancel service:</h3>
-        <p>Specify your reason and choice of service chosen</p>
-        <label for="Reason">Reason</label>
-        <input type="textarea" rows="5" cols="40"  id="cancelservice" name="Reason"> 
+        <p>Specify your service ID</p>
+        <label for="serviceID">Service ID</label>
+        <input type="text"  id="serviceID" name="serviceID"> 
         <input type="submit" value="Submit">
+
+        <script>
+            function cancelService() {
+        const service = JSON.parse(localStorage.getItem("serviceID")) || [];
+        if(service==""||" "){
+            return console.log("Error, could not cancel service");
+        if (service>=1122||service<=3344){
+            return console.log("Service successfullu deleted");
+        }
+        }
+    }
+        </script>
+
+
+       
+    
     </body>
+
     
 
 </html>
