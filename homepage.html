@@ -124,7 +124,40 @@
         }
 
         
-            
+        function storeSelections() {
+        const checkboxes = document.querySelectorAll('input[name="requestedservice"]:checked');
+        const selectedServices = [];
+
+        checkboxes.forEach((checkbox) => {
+            selectedServices.push(checkbox.value);
+        });
+
+        localStorage.setItem('selectedServices', JSON.stringify(selectedServices));
+
+        
+        displaySelections();
+    }
+
+    
+    function displaySelections() {
+        const selectedServices = JSON.parse(localStorage.getItem('selectedServices')) || [];
+        const displayDiv = document.getElementById("selectedServices");
+
+        
+        displayDiv.innerHTML = "<h3>Your Selected Services:</h3>";
+        if (selectedServices.length > 0) {
+            const list = document.createElement("ul");
+            selectedServices.forEach(service => {
+                const listItem = document.createElement("li");
+                listItem.textContent = service;
+                list.appendChild(listItem);
+            });
+            displayDiv.appendChild(list);
+        } else {
+            displayDiv.innerHTML += "<p>No services selected.</p>";
+        }
+    }
+    
              
          </script>
 
@@ -132,7 +165,8 @@
     </body>
 
     </html>
-          
-               
+      
+            
+    
            
        
