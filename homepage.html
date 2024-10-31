@@ -2,7 +2,6 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title id="web">company name</title>
         <style>
             header{background-color: rgb(0, 119, 255);padding: 30px;text-align: center;}
@@ -91,44 +90,49 @@
             
         </footer>
         <script>
-            const a=document.getElementbyId("web");
-            const b=document.getElementbyId("header");
-            const c=document.getElementbyId("services");
-            const d=document.getElementbyId("s1t");
-            const e=document.getElementbyId("s1d");
-            const f=document.getElementbyId("s2t");
-            const g=document.getElementbyId("s2d");
-            const h=document.getElementbyId("s3t");
-            const i=document.getElementbyId("s3d");
-            const k=document.getElementbyId("s4t");
-            const l=document.getElementbyId("s4d");
-            const m=document.getElementbyId("s5t");
-            const n=document.getElementbyId("s5d");
-            const o=document.getElementbyId("lh");
-            const p=document.getElementbyId("s1");
-            const q=document.getElementbyId("s2");
-            const r=document.getElementbyId("s3");
-            const s=document.getElementbyId("s4");
-            const t=document.getElementbyId("r1");
-            const u=document.getElementbyId("r2");
-            const v=document.getElementbyId("r3");
-            const w=document.getElementbyId("r4");
-            const x=document.getElementbyId("r5");
-            const y=document.getElementbyId("r6");
-            const z=document.getElementbyId("r7");
-            const j=document.getElementbyId("e");
-            const ss=document.getElementbyId("cn");
-            const as=document.getElementbyId("als");
-            var he=document.head();
-            var bod=document.body();
-            var tit=ducument.title();
-            var url=ducument.URL();
-            var letpic=ducument.images();
-            var jj=document.createElement();
+            
+            function Updatetitleandheader(){
+            document.getElementById("web").innerText = prompt("Enter company name:", "Company Name");
+            document.getElementById("header").innerHTML = `<h1><i>${document.getElementById("web").innerText}</i></h1>`;}
 
+            function Updateservices(){
+            document.getElementById("services").innerText = prompt("Enter services (separated by |):", "service1 | service2 | service3 | service4 | service5");}
+
+            function Updatewelcomemessageanddescription(){
+            document.getElementById("center").innerText = prompt("Enter welcome message:", "Welcome to our Service Company!");
+            document.getElementById("description").innerText = prompt("Enter company description:", "Service Company description.");}
+
+            function Updateservicedescriptions(){
+            for (let i = 1; i <= 5; i++) {
+                document.getElementById(`s${i}t`).innerText = prompt(`Enter title for service${i}:`, `service${i}`);
+                document.getElementById(`s${i}d`).innerText = prompt(`Enter description for service${i}:`, `service description${i}`);
+            }}
+
+            function Updateservicesteps(){
+            for (let i = 1; i <= 4; i++) {
+                document.getElementById(`s${i}`).innerText = prompt(`Enter step ${i}:`, `step${i}`);
+            }}
+
+            function Updatereasons(){
+            for (let i = 1; i <= 7; i++) {
+                document.getElementById(`r${i}`).innerText = prompt(`Enter reason ${i}:`, `reason${i}`);
+            }}
+
+            function Updatefooter(){
+            document.getElementById("e").innerText = prompt("Enter email address:", "email@example.com");
+            document.getElementById("cn").innerText = prompt("Enter contact number:", "123-456-7890");
+        }
+
+        
+            
              
          </script>
 
        
     </body>
-</html>
+
+    </html>
+          
+               
+           
+       
