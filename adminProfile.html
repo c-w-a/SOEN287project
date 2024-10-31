@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang = "en">
+<head>
+    <title> My Admin Profile </title>
+    <meta charset = "utf-8"/>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+    <div>
+        <h3>Business Details</h3>
+        <p><strong>Email:</strong> <span id="userEmail"></span></p>
+        <p><strong>Phone:</strong> <span id="userPhone"></span></p>
+        <p><strong>Address:</strong> <span id="userAddress"></span></p>
+        <p><strong>Business Name:</strong> <span id="businessName"></span></p>
+        <button onclick="editProfile()">Edit Profile</button>
+        <button onclick="deleteAccount()">Delete Account</button>
+      </div>
+
+
+<script>
+    <!--code inspired from Lyne---> 
+    const email = localStorage.getItem('loggedIn');
+    const userArr = JSON.parse(localStorage.getItem('businessArr'));
+            if (userArr === null) 
+            {
+                userArr = [];
+            }
+    const thisUser = userArr.find(user => user.email === email);
+
+    document.getElementById('userEmail').textContent = email;
+    document.getElementById('userName').textContent = thisUser.name;
+    document.getElementById('userAddress').textContent = thisUser.address;
+    document.getElementById('userPhone').textContent = thisUser.phone;
+    document.getElementById('userPassword').textContent = thisUser.password;
+
+    function editProfile(){
+        var businessName = prompt("What is the name of your business?");
+        var phoneNumber = prompt("What is your phone number?");
+        var emailAddress = prompt("What is your email address?");
+        var physicalAddress = prompt("What is your businness address?"); 
+
+        if(businessName && phoneNumber && physicalAddress) {
+                thisUser.name = businessName;
+                thisUser.address = physicalAddress;
+                thisUser.phone = newPhone;
+                localStorage.setItem('userArr', JSON.stringify(userArr));
+                location.reload();
+        }
+        if(emailAddress != email) {
+            email = emailAddress;
+            localStorage.setItem('userArr', JSON.stringify(userArr));
+            location.reload();
+        }
+
+    }
+
+</script>
