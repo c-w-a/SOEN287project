@@ -37,8 +37,13 @@
            <br> 
         </a>
            <br>
-           
+           <button onclick="logout()"> Log Out </button>
         </body>
         
     </head>
+    <script>
+        function logout(){
+            localStorage.removeItem('loggedIn');
+            window.location.href = "adminportal.html"
+    </script>
 </html>
