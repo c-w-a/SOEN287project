@@ -3,294 +3,102 @@
 <head>
     <title> My Admin Profile </title>
     <meta charset = "utf-8"/>
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="styles.css">
 </head>
+
+    <body class = "profilestyle">
     <a href = "adminSignIn.html">
         Go Back
     </a>
     <h1> Services Offered </h1>
-    <div>
+    <div class = "container">
     <img src = "https://cdn1.iconfinder.com/data/icons/heroicons-solid/20/user-circle-1024.png"
           alt = "admin" width = "50" height = "50" />
 
           <h2><span id = "adminUser"></span></h2>
-    <div>
-        <h3> Services Offered</h3>
-        
-
-<style> table, th, td {
-            border: 1px solid black;
-            border-collapse: collapse;
-}
-    </style>
-        <table>
-            <caption> Services Offered </caption>
-            <tr>
-                <th> Service </th>
-                <th> Duration </th>
-                <th> Price </th>
-            </tr>
-            <tr>
-                <th><span id="service1"></span></th>
-                <td><span id="duration1"></span></td>
-                <td><span id="price1"></span></td>
-            </tr>
-            <tr>
-                <th><span id="service2"></span></th>
-                <td><span id="duration2"></span></td>
-                <td><span id="price2"></span></td>
-            </tr>
-            <tr>
-                <th><span id="service3"></span></th>
-                <td><span id="duration3"></span></td>
-                <td><span id="price3"></span></td>
-            </tr>
-            <tr>
-                <th><span id="service4"></span></th>
-                <td><span id="duration4"></span></td>
-                <td><span id="price4"></span></td>
-            </tr>
-            <tr>
-                <th><span id="service5"></span></th>
-                <td><span id="duration5"></span></td>
-                <td><span id="price5"></span></td>
-            </tr>
-        </table>
+        <h3> List of Offered Services</h3>
+        <div id = "displayServices"></div>
+         </div>
+        <div class = "container">
+            <h3>Manage</h3>
         <button onclick="addService()">Add services</button>
         <br>
         <button onclick="modifyService()">Modify service</button>
         <br>
         <button onclick="deleteService()">Delete service</button>
-        
+        </div>
+
+        </body>
 <script>
    
-    let service1 = localStorage.getItem('service1');
-    let service2 = localStorage.getItem('service2');
-    let service3 = localStorage.getItem('service3');
-    let service4 = localStorage.getItem('service4');
-    let service5 = localStorage.getItem('service5');
+   let serviceArr = JSON.parse(localStorage.getItem('serviceArr')) || [];
 
-    document.getElementById('service1').textContent = service1;
-    document.getElementById('service2').textContent = service2;
-    document.getElementById('service3').textContent = service3;
-    document.getElementById('service4').textContent = service4;
-    document.getElementById('service5').textContent = service5;
+function displayServices() {
+    const display = document.getElementById('displayServices');
+    display.innerHTML = ''; 
 
-    let duration1 = localStorage.getItem('duration1');
-    let duration2 = localStorage.getItem('duration2');
-    let duration3 = localStorage.getItem('duration3');
-    let duration4 = localStorage.getItem('duration4');
-    let duration5 = localStorage.getItem('duration5');
+    serviceArr.forEach((service, index) => {
+        const serviceCard = document.createElement('div');
+        serviceCard.className = 'service-card';
 
-    document.getElementById('duration1').textContent = duration1;
-    document.getElementById('duration2').textContent = duration2;
-    document.getElementById('duration3').textContent = duration3;
-    document.getElementById('duration4').textContent = duration4;
-    document.getElementById('duration5').textContent = duration5;
+        serviceCard.innerHTML = `
+            <div class="serviceName">${service.name}</div>
+            <div>Description: ${service.description}</div>
+            <div>Duration: ${service.duration}</div>
+            <div>Price: ${service.price}</div>
+        `;
 
-    let price1 = localStorage.getItem('price1');
-    let price2 = localStorage.getItem('price2');
-    let price3 = localStorage.getItem('price3');
-    let price4 = localStorage.getItem('price4');
-    let price5 = localStorage.getItem('price5');
+        display.appendChild(serviceCard);
+    });
+}
 
-    document.getElementById('price1').textContent = price1;
-    document.getElementById('price2').textContent = price2;
-    document.getElementById('price3').textContent = price3;
-    document.getElementById('price4').textContent = price4;
-    document.getElementById('price5').textContent = price5;
 
-    function addService(){
-        
-        var service1A = prompt("What service would you like to add?");
-        var duration1A = prompt("How long will this service take?");
-        var price1A = prompt("How much does this service cost?");
+function addService() {
+    const name = prompt("What service would you like to add?");
+    const description = prompt("Provide a brief description of the service.");
+    const duration = prompt("How long will this service take?");
+    const price = prompt("How much does this service cost?");
 
-        var service2A = prompt("What service would you like to add?");
-        var duration2A = prompt("How long will this service take?");
-        var price2A = prompt("How much does this service cost?");
-
-        var service3A = prompt("What service would you like to add?");
-        var duration3A = prompt("How long will this service take?");
-        var price3A = prompt("How much does this service cost?");
-
-        var service4A = prompt("What service would you like to add?");
-        var duration4A = prompt("How long will this service take?");
-        var price4A = prompt("How much does this service cost?");
-
-        var service5A = prompt("What service would you like to add?");
-        var duration5A = prompt("How long will this service take?");
-        var price5A = prompt("How much does this service cost?");
-
-        service1 = service1A;
-        service2 = service2A;
-        service3 = service3A;
-        service4 = service4A;
-        service5 = service5A;
-
-        duration1 = duration1A;
-        duration2 = duration2A;
-        duration3 = duration3A;
-        duration4 = duration4A;
-        duration5 = duration5A;
-
-        price1 = price1A;
-        price2 = price2A;
-        price3 = price3A;
-        price4 = price4A;
-        price5 = price5A;
-
-        if (service1 !=null && service2 !=null && service3 !=null && service4 !=null && service5 !=null ){
-        localStorage.setItem('service1', service1);
-        localStorage.setItem('service2', service2);
-        localStorage.setItem('service3', service3);
-        localStorage.setItem('service4', service4);
-        localStorage.setItem('service5', service5);
-
-        localStorage.setItem('duration1', duration1);
-        localStorage.setItem('duration2', duration2);
-        localStorage.setItem('duration3', duration3);
-        localStorage.setItem('duration4', duration4);
-        localStorage.setItem('duration5', duration5);
-
-        localStorage.setItem('price1', price1);
-        localStorage.setItem('price2', price2);
-        localStorage.setItem('price3', price3);
-        localStorage.setItem('price4', price4);
-        localStorage.setItem('price5', price5);
-
-        location.reload();
-        }
+    if (name && description && duration && price) {
+        const newService = { name, description, duration, price };
+        serviceArr.push(newService);
+        localStorage.setItem('serviceArr', JSON.stringify(serviceArr));
+        displayServices();
     }
+}
 
-        function modifyService(){
-            var serviceToModify = prompt("What service would you like to modify?");
-
-            if(serviceToModify == 'service1') {
-                    var newService = prompt("What is the new service?");
-                    var newDuration = prompt("How long will the new service take?");
-                    var newPrice = prompt("How much will the new service take?");
-
-                    service1 = newService;
-                    duration1 = newDuration;
-                    price1 = newPrice;
-
-                    localStorage.setItem('service1', service1);
-                    localStorage.setItem('duration1', duration1);
-                    localStorage.setItem('price1', price1);
-                    location.reload();
-                
-            
-            }
-
-            if(serviceToModify == 'service2') {
-                    var newService = prompt("What is the new service?");
-                    var newDuration = prompt("How long will the new service take?");
-                    var newPrice = prompt("How much will the new service take?");
-
-                    service2 = newService;
-                    duration2 = newDuration;
-                    price2 = newPrice;
-
-                    localStorage.setItem('service2', service2);
-                    localStorage.setItem('duration2', duration2);
-                    localStorage.setItem('price2', price2);
-                    location.reload();
-
-            
-            }
-
-            if(serviceToModify == 'service3') {
-                    var newService = prompt("What is the new service?");
-                    var newDuration = prompt("How long will the new service take?");
-                    var newPrice = prompt("How much will the new service take?");
-
-                    service3 = newService;
-                    duration3 = newDuration;
-                    price3 = newPrice;
-
-                    localStorage.setItem('service3', service3);
-                    localStorage.setItem('duration3', duration3);
-                    localStorage.setItem('price3', price3);
-                    location.reload();
-
-            
-            }
-
-            if(serviceToModify == 'service4') {
-                    var newService = prompt("What is the new service?");
-                    var newDuration = prompt("How long will the new service take?");
-                    var newPrice = prompt("How much will the new service take?");
-
-                    service4 = newService;
-                    duration4 = newDuration;
-                    price4 = newPrice;
-
-                    localStorage.setItem('service4', service4);
-                    localStorage.setItem('duration4', duration4);
-                    localStorage.setItem('price4', price4);
-                    location.reload();
-
-            
-            }
-
-            if(serviceToModify == 'service5') {
-                    var newService = prompt("What is the new service?");
-                    var newDuration = prompt("How long will the new service take?");
-                    var newPrice = prompt("How much will the new service take?");
-
-                    service5 = newService;
-                    duration5 = newDuration;
-                    price5 = newPrice;
-
-                    localStorage.setItem('service5', service5);
-                    localStorage.setItem('duration5', duration5);
-                    localStorage.setItem('price5', price5);
-                    location.reload();
-
-            
-            }
-        }
-
-        
-    function deleteService(){
-        var serviceToDelete = prompt("What service would you like to delete?");
-
-    if(serviceToDelete == 'service1') {
-        localStorage.setItem('service1',null);
-        localStorage.setItem('duration1',null);
-        localStorage.setItem('price1', null);
-        location.reload();
-    }
-
-    if(serviceToDelete == 'service2') {
-        localStorage.setItem('service2', null);
-        localStorage.setItem('duration2', null);
-        localStorage.setItem('price2', null);
-        location.reload();
-    }
-
-    if(serviceToDelete == 'service3') {
-        localStorage.setItem('service3', null);
-        localStorage.setItem('duration3', null);
-        localStorage.setItem('price3', null);
-        location.reload();
-    }
-
-    if(serviceToDelete == 'service4') {
-        localStorage.setItem('service4', null);
-        localStorage.setItem('duration4', null);
-        localStorage.setItem('price4', null);
-        location.reload();
-    }
-
-    if(serviceToDelete == 'service5') {
-        localStorage.setItem('service5', null);
-        localStorage.setItem('duration5', null);
-        localStorage.setItem('price5', null);
-        location.reload();
-    }
-    }
+function modifyService() {
+    const index = parseInt(prompt("Enter the service number to modify (1 for the first service):")) - 1;
     
-    
+    if (serviceArr[index]) {
+        const name = prompt("Modify service name.", serviceArr[index].name);
+        const description = prompt("Modify service description", serviceArr[index].description);
+        const duration = prompt("Modify service duration.", serviceArr[index].duration);
+        const price = prompt("Modify service price", serviceArr[index].price);
+
+        serviceArr[index] = { name, description, duration, price };
+        localStorage.setItem('serviceArr', JSON.stringify(serviceArr));
+        displayServices();
+    } else {
+        alert("Invalid service number.");
+    }
+}
+
+
+function deleteService() {
+    const index = parseInt(prompt("Enter the service number to delete (1 for the first service):")) - 1;
+
+    if (serviceArr[index]) {
+        serviceArr.splice(index, 1);
+        localStorage.setItem('serviceArr', JSON.stringify(serviceArr));
+        displayServices();
+    } else {
+        alert("Invalid service number.");
+    }
+}
+
+displayServices();
+
+ 
 </script>
+</html>
