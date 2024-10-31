@@ -7,17 +7,9 @@
            <h1>Please Select an option.
 
             <h3>Profile details
-            <a href = "adminProfile.html">
-                <br>
-                Edit Profile
-                <br>
-              </a>
-              <a href = "#">
-            
-                Delete Profile
-                <br>
-              </a>
-            <br>
+                <p><button onclick="editProfile()">Edit Profile</button></p>
+                <p><button onclick="deleteAccount()">Delete Account</button></p>
+
             </h3>Services
             <br>
             <a href = "#">
@@ -42,6 +34,16 @@
         
     </head>
     <script>
+        function deleteAccount(){
+        if(confirm("Are you sure you want ot delete your admin account? This action cannot be undone.")){
+            localStorage.clear();
+            window.location.href = 'index.html';
+        }
+    }
+        function editProfile(){
+            window.location.href = 'adminProfile.html'
+        }
+
         function logout(){
             localStorage.removeItem('loggedIn');
             window.location.href = "adminportal.html"
