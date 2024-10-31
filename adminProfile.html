@@ -41,16 +41,14 @@
         if(businessName && phoneNumber && physicalAddress) {
                 name = businessName;
                 address = physicalAddress;
-                phone = newPhone;
+                phone = phoneNumber;
                 localStorage.setItem('businessName', name);
                 localStorage.setItem('businessAddress', address);
                 localStorage.setItem('businessPhone', phone);
-                location.reload();
         }
         if(emailAddress != email) {
             email = emailAddress;
             localStorage.setItem('businessEmail', email);
-            location.reload();
         }
 
     }
