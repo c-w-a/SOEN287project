@@ -5,33 +5,32 @@
     <meta charset = "utf-8"/>
     <link rel="stylesheet" href="css/styles.css">
 </head>
-
+<h1> My Admin Profile</h1>
     <div>
-        <h3>Business Details</h3>
-        <p><strong>Email:</strong> <span id="userEmail"></span></p>
-        <p><strong>Phone:</strong> <span id="userPhone"></span></p>
-        <p><strong>Address:</strong> <span id="userAddress"></span></p>
-        <p><strong>Business Name:</strong> <span id="businessName"></span></p>
+    <img src = "https://cdn1.iconfinder.com/data/icons/heroicons-solid/20/user-circle-1024.png"
+          alt = "admin" width = "50" height = "50" />
+
+          <h2><span id = "adminUser"></span></h2>
+    <div>
+        <h3> Business Details</h3>
+        <p><strong>Business Name:</strong><span id="businessName"></span></p>
+        <p><strong>Email Address:</strong> <span id="businessEmail"></span></p>
+        <p><strong>Phone Number:</strong> <span id="businessPhone"> </span></p>
+        <p><strong>Address:</strong> <span id="businessAddress"></span></p>
         <button onclick="editProfile()">Edit Profile</button>
         <button onclick="deleteAccount()">Delete Account</button>
-      </div>
-
-
 <script>
     <!--code inspired from Lyne---> 
-    const email = localStorage.getItem('loggedIn');
-    const userArr = JSON.parse(localStorage.getItem('businessArr'));
-            if (userArr === null) 
-            {
-                userArr = [];
-            }
-    const thisUser = userArr.find(user => user.email === email);
 
-    document.getElementById('userEmail').textContent = email;
-    document.getElementById('userName').textContent = thisUser.name;
-    document.getElementById('userAddress').textContent = thisUser.address;
-    document.getElementById('userPhone').textContent = thisUser.phone;
-    document.getElementById('userPassword').textContent = thisUser.password;
+    let name = localStorage.getItem('businessName');
+    let email = localStorage.getItem('businessEmail');
+    let phone = localStorage.getItem('businessPhone');
+    let address = localStorage.getItem('businessAddress');
+
+    document.getElementById('businessName').textContent = name;
+    document.getElementById('businessEmail').textContent = email;
+    document.getElementById('businessPhone').textContent = phone;
+    document.getElementById('businessAddress').textContent = address;
 
     function editProfile(){
         var businessName = prompt("What is the name of your business?");
@@ -40,18 +39,27 @@
         var physicalAddress = prompt("What is your businness address?"); 
 
         if(businessName && phoneNumber && physicalAddress) {
-                thisUser.name = businessName;
-                thisUser.address = physicalAddress;
-                thisUser.phone = newPhone;
-                localStorage.setItem('userArr', JSON.stringify(userArr));
+                name = businessName;
+                address = physicalAddress;
+                phone = newPhone;
+                localStorage.setItem('businessName', name);
+                localStorage.setItem('businessAddress', address);
+                localStorage.setItem('businessPhone', phone);
                 location.reload();
         }
         if(emailAddress != email) {
             email = emailAddress;
-            localStorage.setItem('userArr', JSON.stringify(userArr));
+            localStorage.setItem('businessEmail', email);
             location.reload();
         }
 
+    }
+
+    function deleteAccount(){
+        if(confirm("Are you sure you want ot delete your admin account? This action cannot be undone.")){
+            localStorage.clear();
+            window.location.href = 'index.html';
+        }
     }
 
 </script>
