@@ -55,9 +55,9 @@ function handleLogin(event)
     event.preventDefault();
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
-            const userArr = JSON.parse(localStorage.getItem('userArr')) || [];
-            const thisUser = userArr.find(user => user.email === email && user.password === password);
-    if (thisUser) 
+            const adminArr = JSON.parse(localStorage.getItem('adminArr')) || [];
+            const thisAdmin = adminArr.find(admin => admin.email === email && admin.password === password);
+    if (thisAdmin) 
         {
             localStorage.setItem('loggedIn', email);
             window.location.href = 'adminSignIn.html';
