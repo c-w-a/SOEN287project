@@ -5,6 +5,9 @@
     <meta charset = "utf-8"/>
     <link rel="stylesheet" href="css/styles.css">
 </head>
+    <a href = "index.html">
+        Go Back
+    </a>
 <h1> My Admin Profile</h1>
     <div>
     <img src = "https://cdn1.iconfinder.com/data/icons/heroicons-solid/20/user-circle-1024.png"
@@ -45,16 +48,16 @@
                 localStorage.setItem('businessName', name);
                 localStorage.setItem('businessAddress', address);
                 localStorage.setItem('businessPhone', phone);
+                location.reload();
         }
         if(emailAddress != email) {
             email = emailAddress;
             localStorage.setItem('businessEmail', email);
-        }
-
+            location.reload();        }
     }
 
     function deleteAccount(){
-        if(confirm("Are you sure you want ot delete your admin account? This action cannot be undone.")){
+        if(confirm("Are you sure you want to delete your admin account? This action cannot be undone.")){
             localStorage.clear();
             window.location.href = 'index.html';
         }
