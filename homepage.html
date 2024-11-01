@@ -101,6 +101,32 @@
             
         </footer>
         <script>
+                        
+            window.onload = function() 
+{
+    const loginstatus = document.getElementById("loginstatus");
+    const loggedIn = localStorage.getItem('loggedIn');
+
+    if (loggedIn) 
+        {
+        loginstatus.textContent = 'My Profile';
+        loginstatus.onclick = function() 
+        {
+            window.location.href = 'clientportal.html'; 
+        };
+    } 
+    else
+     {
+        loginstatus.textContent = 'Log In';
+        loginstatus.onclick = function() 
+        {
+            window.location.href = 'login.html'; 
+        };
+    }
+};
+
+
+
             
             function Updatetitleandheader(){
             document.getElementById("web").innerText = prompt("Enter company name:", "Company Name");
