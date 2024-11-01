@@ -7,7 +7,7 @@
 
 </head>
 <body class = "profilestyle">
-  <a href = "homepage.html">
+  <a href = "index.html">
      Go back
   </a>
     <h1> My Profile</h1>
@@ -77,7 +77,7 @@
                 const updatedUserArr = userArr.filter(user => user.email !== email);
                 localStorage.setItem('userArr', JSON.stringify(updatedUserArr));
                 localStorage.removeItem('loggedIn');
-                window.location.href = 'homepage.html';
+                window.location.href = 'index.html';
             }
         }
 
