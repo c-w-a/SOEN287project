@@ -1,38 +1,32 @@
 <!DOCTYPE html>
 <html lang = "en">
     <head>
+        <title>Admin Options</title>
+        <meta charset = "utf-8"/>
         <link rel="stylesheet" href="css/styles.css">
-        <body> 
-            You have successfully signed in.
-            <br>
-           <h1>Please Select an option.
+    </head>    
+       
+        <body class = "profilestyle"> 
+            
+           <h1>Admin Options</h1>
 
-            <h3>Profile details
-                <p><button onclick="editProfile()">Edit Profile</button></p>
-                <p><button onclick="deleteAccount()">Delete Account</button></p>
+            <div class = "profilestyle">
+            <h3>Manage your Business</h3>
+               <p><button onclick="editProfile()">Business Information</button></p>
+            
+                <p><button onclick="services()"> Edit Services </button></p>
+            
+                <p><button>Requested Services</button></p>
+                
+                <p><button>Past Services</button></p>
 
-            </h3>Services
-            <br>
-           <p><button onclick="services()"> View Services </button></p>
-               <br> 
-           </a>
-           <a href = "#">
-            Confirm Execution of a Service
-           <br> 
-        </a>
-           <a href = "#">
-            Follow up with customers
-           <br> 
-        </a>
-        <a href = "#">
-            Past Completed Services
-           <br> 
-        </a>
-           <br>
+                <p><button>Bills</button></p>
+               
+      
            <button onclick="logout()"> Log Out </button>
+           <p><button onclick="deleteAccount()">Delete Account</button></p>
+    </div>
         </body>
-        
-    </head>
     <script>
         function deleteAccount(){
         if(confirm("Are you sure you want ot delete your admin account? This action cannot be undone.")){
