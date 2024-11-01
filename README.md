@@ -18,6 +18,27 @@ Here is a list of features we implemented on the business side, and by who it wa
 - created adminSignUP.html, which allows a business to signup for an admin account. Done by Navpreet, inspired by code done by Lyne and Azmain.
 - created adminportal.html which is the login page for the admin. Worked on by Chris and Navpreet.
 
+Client Side
+- created userSignUp which lets the user create an account. Done by Lyne.
+- created userLogIn which is able to recognize if an email and password is associated with an account. Done by Lyne.
+- created userProfile where a user has their information displayed. They can edit their information, log out and delete their account for now. Done by Lyne.
+- created index which is the homepage of the website. It has the a button that either connects to the login or to the profile if the user is already logged in. There is a search bar and a place to request a service. Page done by Azmain. LogIn button done by Lyne.
+
+Here are the sources used for deliverabe #1:
+To handle a form submission:
+
+Jason Lengstorf, "Get Form Values as JSON," Learn With Jason, accessed October 31, 2024, https://www.learnwithjason.dev/blog/get-form-values-as-json.
+
+To get info from a form to a variable:
+
+"HTML DOM Input Email value Property," W3Schools, accessed October 31, 2024, https://www.w3schools.com/jsref/prop_email_value.asp.
+
+To do the display of services:
+
+"Display Dynamic Content HTML," Code Boxx, accessed October 31, 2024, https://code-boxx.com/display-dynamic-content-html/.
+
+Kevin Chisholm, "Dynamic HTML with JavaScript," Kevin Chisholm Blog, accessed October 31, 2024, https://blog.kevinchisholm.com/javascript/dynamic-html-with-javascript/.
+
 ## Features To Be Implemented For Next Deliverable:
 Business Side
 - Will need to create an array to store the business data given by admin in adminProfile, so that this data can then be used to display it on the website.
@@ -27,7 +48,31 @@ Business Side
 - implement a feature that will display past orders at any selected time of all or any customer(s).
 - implement a feature that will confirm a service requested by the customer.
 
+Client Side
+- update the search bar
+- update the request service form so that the data is saved
+- implement the page where client can see their services
+- implement the page where client can see their bill
   
+
 ## Install Guide:
+Our website should be deployed by first opening the index.html which is the home page of our website. From there, a client and admin can access their login/ sign up pages
 
 ## User Guide:
+For an admin:
+Click on the login button and create an account using the Admin sign up form. Then, the admin would have access to the Admin Options page to manage their business.
+Admin should first start by clicking the Business Information button to add their business details, such as the name, the email address, the phone number and their address.
+Then, by clicking Go Back, admin are back to the Admin Options page. 
+They should then click on the Edit Services button to add services.
+When this is all set up, admin can then log out and be brought to the home page again.
+
+For a client:
+Click on the login and create an account using the Sign Up page. Then, the client will be brought back to the home page, but they now have access to their profile.
+On the home page, a client can search for a specific service and is able to request a service. (to be updated)
+By clicking the My Profile button at the top, the client is able to access and edit their information. 
+Clients are able to see in the Services and Payments page the service that they have requested. (to be implemented)
+Client can then log out and be brought back to the home page again. 
+
+
+
+
