@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang = "en">
+<head>
+    <title> My Admin Profile </title>
+    <meta charset = "utf-8"/>
+    <link rel="stylesheet" href="styles.css">
+</head>
+    
+<body class = "profilestyle">
+    <a href = "adminPortal.html">
+     Go Back
+    </a>
+    <h1> Edit Business Info</h1>
+    <div class = "profilestyle">
+        <img src = "https://cdn1.iconfinder.com/data/icons/heroicons-solid/20/user-circle-1024.png"
+            alt = "admin" width = "55" height = "50" />
+        <h2><span id = "adminUser"></span></h2>
+        <hr>
+        <h3> Business Details </h3>
+        <p><strong>Business Name:</strong><span id="businessName"></span></p>
+        <p><strong>Slogan:</strong><span id="businessSlogan"></span></p>
+        <p><strong>Email Address:</strong> <span id="businessEmail"></span></p>
+        <p><strong>Phone Number:</strong> <span id="businessPhone"> </span></p>
+        <p><strong>Address:</strong> <span id="businessAddress"></span></p>
+        <button onclick="editInfo()">Add / Modify Business Info</button>
+        <button onclick="deleteInfo()">Reset Business Info</button>
+    </div>
+        
+    <script>
+       async function loadInfo() {
+            try {
+                const response = await fetch('/business-info');
+                if (response.ok) {
+                    const data = await response.json();
+                    document.getElementById('businessName').textContent = data.name || 'N/A';
+                    document.getElementById('businessSlogan').textContent = data.slogan || 'N/A';
+                    document.getElementById('businessEmail').textContent = data.email || 'N/A';
+                    document.getElementById('businessPhone').textContent = data.phone || 'N/A';
+                    document.getElementById('businessAddress').textContent = data.address || 'N/A';
+                } else {
+                    alert('failed to load business info');
+                }
+            } catch (error) {
+                console.error('Error loading profile:', error);
+                alert('An error occurred while loading the profile.');
+            }
+        }
+
+        async function editInfo() {
+            const businessName = prompt("What is the name of your business?");
+            const businessSlogan = prompt("What is your business slogan?");
+            const phoneNumber = prompt("What is your phone number?");
+            const emailAddress = prompt("What is your email address?");
+            const physicalAddress = prompt("What is your business address?");
+
+            try {
+                const response = await fetch('/business-info', {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        businessName,
+                        businessSlogan,
+                        emailAddress,
+                        phoneNumber,
+                        physicalAddress,
+                    }),
+                });
+
+                if (response.ok) {
+                    alert('profile updated successfully');
+                    window.location.href = 'adminPortal.html';
+                } else {
+                    alert('failed to update profile');
+                }
+            } catch (error) {
+                console.error('error updating profile:', error);
+                alert('an error occurred while updating the profile.');
+            }
+        }
+
+        async function deleteInfo() {
+            if (confirm('sure you want to reset the business info?')) {
+                try {
+                    const response = await fetch('/business-info', {
+                        method: 'DELETE',
+                    });
+
+                    if (response.ok) {
+                        alert('profile deleted successfully');
+                        window.location.href = 'adminPortal.html';
+                    } else {
+                        alert('failed to delete profile');
+                    }
+                } catch (error) {
+                    console.error('error deleting profile:', error);
+                    alert('an error occurred while deleting the profile.');
+                }
+            }
+        }
+
+        loadInfo();
+    </script>
+</body>
+</html>

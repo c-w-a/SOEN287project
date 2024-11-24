@@ -1,0 +1,61 @@
+
+<!DOCTYPE html>
+<html lang = "en">
+<head>
+    <title> Admin LogIn </title>
+    <meta charset = "utf-8"/>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="formstyle">
+    <a href = "index.html">
+     Go Back
+    </a>
+
+    <div class="container">
+        <h2> Admin Login </h2>
+        <form id="loginForm" onsubmit="handleLogin(event)">
+            <label>
+                Username
+                <br>
+                <input type = "text" id = "username" name = "username" required/>
+            </label>
+            <br><br>
+            <label>
+                Password
+                <br>
+                <input type = "password" id = "password" name = "password" required/>
+            </label>
+            <br><br>
+            <input type = "submit" value = "Log in"/>
+        </form>
+    </div>
+
+    <script>
+    async function handleLogin(event) {
+        event.preventDefault();
+
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+
+        try {
+            const response = await fetch('/admin-login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: new URLSearchParams({ username, password }),
+            });
+
+            if (response.ok) {
+                window.location.href = 'adminPortal.html';
+            } else {
+                const error = await response.text();
+                alert(error);
+            }
+        } catch (error) {
+            console.error('error during login:', error);
+            alert('error occurred.. please try again later.');
+        }
+    }
+    </script>
+</body>
+</html>

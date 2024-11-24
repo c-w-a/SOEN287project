@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang = "en">
+    <head>
+        <title>User Portal</title>
+        <meta charset = "utf-8"/>
+        <link rel="stylesheet" href="styles.css">
+    </head>    
+       
+        <body class = "profilestyle"> 
+            
+           <h1>User Portal</h1>
+
+            <div class = "profilestyle">
+            <h3>Menu Options</h3>
+                <p><button onclick="editProfile()"> Edit Profile </button></p>
+            
+                <p><button onclick="services()"> Request Service </button></p>
+            
+                <p><button> View Services </button></p>
+      
+           <button onclick="logout()"> Log Out </button>
+           <p><button onclick="deleteAccount()"> Delete Profile </button></p>
+    </div>
+        </body>
+    <script>
+        function deleteAccount(){
+        if(confirm("Are you sure you want ot delete your admin account? This action cannot be undone.")){
+            localStorage.clear();
+            window.location.href = 'index.html';
+        }
+    }
+        function editProfile(){
+            window.location.href = 'adminProfile.html'
+        }
+
+        function services(){
+            window.location.href = 'adminServices.html'
+        }
+
+        function logout(){
+            localStorage.removeItem('loggedIn');
+            window.location.href = "index.html"
+        }
+    </script>
+</html>

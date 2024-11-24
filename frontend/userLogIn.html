@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang = "en">
+<head>
+    <title> Log in </title>
+    <meta charset = "utf-8"/>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body class = "formstyle">
+
+    <div class = "container">
+        <h2> Log in</h2>
+    
+        <form id="loginForm" onsubmit="handleLogin(event)">
+            <label>
+                Email Address
+                <br>
+                <input type = "email" id = "email" name = "email" required/>
+            </label>
+            <br><br>
+            <label>
+                Password
+                <br>
+                <input type = "password" id = "password" name = "password" required/>
+            </label>
+            <br><br>
+            <input type = "submit" value = "Log in"/>
+        </form>
+        <br>
+    
+        <span>Don't have an account? </span>
+        <a href = "userSignUp.html">
+            Sign up
+        </a>
+        <br>
+        <a href = "adminLogIn.html">
+            Admin log in
+        </a>
+    </div>
+
+    <script>
+        async function handleLogin(event) {
+            event.preventDefault();
+
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            try {
+                const response = await fetch('/user-login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: new URLSearchParams({ email, password }),
+                });
+
+                if (response.ok) {
+                    window.location.href = 'userPortal.html';
+                } else {
+                    const error = await response.text();
+                    alert(error);
+                }
+            } catch (error) {
+                console.error('error during login:', error);
+                alert('error occurred.. please try again later..');
+            }
+        }
+    </script>
+</body>
+</html>
