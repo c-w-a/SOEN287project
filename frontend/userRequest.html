@@ -1,1 +1,88 @@
+<!DOCTYPE html>
+<head>
+    <title> Request Services </title>
+    <meta charset = "utf-8"/>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<header>
+    <a href = "userPortal.html">
+        Go back
+         </a>
+</header>
+<body class = "profilestyle">
+    <div class = "profilestyle">
+        <h2>Request Our Services</h2>
+        <form id = "serviceRequest" onsubmit = "handleRequest(event)">
+            <div id="service-container"></div>
+    
+            <label><strong>
+                Choose a date
+                <br>
+            </label></strong>
+            <input type="date" id="date" name="date" required><br><br>
+            <input type = "submit" value = "Request Service"/>
+        </form>
 
+    </div>
+
+</body>
+<script>
+
+async function loadServices(){
+    try{
+        const response = await fetch('/request');
+        if(response.ok) {
+            const services = await response.json();
+            displayServices(services);
+        } else {
+            alert('Could not load services');
+        }
+    } catch (error) {
+        console.error('Error loading services:', error);
+    }
+}
+
+function displayServices(services){
+    const serviceContainer = document.getElementById('service-container');
+    serviceContainer.innerHTML = '';
+
+    services.forEach(item => {
+        const serviceItem = document.createElement('div');
+
+        const serviceInput = document.createElement('input');
+        serviceInput.type = 'radio';
+        serviceInput.id = `service-${item.id}`;
+        serviceInput.name = 'serviceId';
+        serviceInput.value = item.id;
+        serviceInput.required = true;
+
+        const serviceLabel = document.createElement('label');
+        serviceLabel.htmlFor = `service-${item.id}`;
+
+        serviceLabel.innerHTML = `
+            <strong>${item.name}</strong><br>
+            Description: ${item.description}<br>
+            Duration: ${item.duration}<br>
+            Price: ${item.price}$
+            <br><br>
+        `;
+
+        serviceItem.appendChild(serviceInput);
+        serviceItem.appendChild(serviceLabel);
+
+        serviceContainer.appendChild(serviceItem);
+    });
+
+
+
+}
+
+
+
+async function handleRequest(event){
+    event.preventDefault();
+
+
+}
+window.onload = loadServices;
+</script>
