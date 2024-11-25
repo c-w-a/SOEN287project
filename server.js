@@ -12,9 +12,9 @@ app.use(express.urlencoded({ extended: true }));
 // connect to database
 const db = new sqlite3.Database('./db.sqlite', (err) => {
     if (err) {
-        console.error("rrror connecting to db:", err.message);
+        console.error("Error connecting to db:", err.message);
     } else {
-        console.log("connected to SQLite database!");
+        console.log("Connected to SQLite database!");
     }
 });
 
@@ -28,11 +28,11 @@ app.post('/admin-login', (req, res) => {
     const query = `SELECT * FROM Admin WHERE username = ? AND password = ?`;
     db.get(query, [username, password], (err, row) => {
         if (err) {
-            res.status(500).send("database error..");
+            res.status(500).send("Database error..");
         } else if (row) {
-            res.send("you have been authenticated!");
+            res.send("You have been authenticated!");
         } else {
-            res.status(401).send("invalid username or password..");
+            res.status(401).send("Invalid username or password..");
         }
     });
 });
@@ -42,18 +42,37 @@ app.get('/business-info', (req, res) => {
     const query = `SELECT * FROM Business WHERE id = 1`;
     db.get(query, (err, row) => { 
         if (err) {
-            console.error("error fetching business info:", err.message);
-            res.status(500).send("database error");
+            console.error("Error fetching business info:", err.message);
+            res.status(500).send("Database error");
         } else if (!row) {
-            res.status(404).send("no business info found..");
+            res.status(404).send("No business info found..");
         } else {
             res.json(row);
         }
     });
 });
 
-// endpoint to update business info
-app.put('/business-info', (req, res) => {
+// // endpoint to update business info
+// app.put('/business-info', (req, res) => {
+//     const { businessName, businessSlogan, emailAddress, phoneNumber, physicalAddress } = req.body;
+
+//     const query = `
+//         UPDATE Business
+//         SET name = ?, slogan = ?, email = ?, phone = ?, address = ?
+//         WHERE id = 1
+//     `;
+//     db.run(query, [businessName, businessSlogan, emailAddress, phoneNumber, physicalAddress], function (err) {
+//         if (err) {
+//             console.error("error updating business info:", err.message);
+//             res.status(500).send("database error");
+//         } else {
+//             res.send("business info updated successfully");
+//         }
+//     });
+// });
+
+//for updating business info
+app.post('/business-info', (req, res) => {
     const { businessName, businessSlogan, emailAddress, phoneNumber, physicalAddress } = req.body;
 
     const query = `
@@ -63,10 +82,10 @@ app.put('/business-info', (req, res) => {
     `;
     db.run(query, [businessName, businessSlogan, emailAddress, phoneNumber, physicalAddress], function (err) {
         if (err) {
-            console.error("error updating business info:", err.message);
-            res.status(500).send("database error");
+            console.error("Error updating business info:", err.message);
+            res.status(500).send("Database error");
         } else {
-            res.send("business info updated successfully");
+            res.send("Business info updated successfully!");
         }
     });
 });
@@ -80,10 +99,10 @@ app.delete('/business-info', (req, res) => {
     `;
     db.run(query, function (err) {
         if (err) {
-            console.error("error deleting business info:", err.message);
-            res.status(500).send("database error");
+            console.error("Error deleting business info:", err.message);
+            res.status(500).send("Database error");
         } else {
-            res.send("business info deleted successfully");
+            res.send("Business info deleted successfully.");
         }
     });
 });
@@ -102,8 +121,8 @@ app.post('/services', (req, res) => {
     `;
     db.run(query, [name, description, duration, price], function (err) {
         if (err) {
-            console.error("error adding service:", err.message);
-            res.status(500).send("database error");
+            console.error("Error adding service:", err.message);
+            res.status(500).send("Database error");
         } else {
             res.send({ success: true, id: this.lastID });
         }
@@ -165,15 +184,15 @@ app.post('/user-signup', (req, res) => {
     `;
     db.run(query, [email, password, name, address, phone], function (err) {
         if (err) {
-            console.error("error during signup:", err.message);
+            console.error("Error during signup:", err.message);
             if (err.message.includes("UNIQUE constraint failed")) {
                 res.status(400).send("Email already exists");
             } else {
                 res.status(500).send("Database error");
             }
         } else {
-            console.log("user signed up with ID:", this.lastID);
-            res.send("signup successful! you can now log in..");
+            console.log("User signed up with ID:", this.lastID);
+            res.send("Signup successful! you can now log in..");
         }
     });
 });
@@ -185,16 +204,16 @@ app.post('/user-login', (req, res) => {
     const query = `SELECT * FROM Users WHERE email = ?`;
     db.get(query, [email], (err, user) => {
         if (err) {
-            console.error("database error:", err.message);
+            console.error("Database error:", err.message);
             res.status(500).send("database error");
         } else if (!user) {
-            res.status(401).send("invalid email or password..");
+            res.status(401).send("Invalid email or password..");
         } else {
             if (user.password === password) {
                 console.log("user logged in:", user.email);
-                res.send("login successful!");
+                res.send("Login successful!");
             } else {
-                res.status(401).send("invalid email or password..");
+                res.status(401).send("Invalid email or password..");
             }
         }
     });
