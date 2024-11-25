@@ -302,6 +302,20 @@ app.get('/logout', (req, res) => {
     });
 });
 
+// endpoint to retrieve servicesOffered 
+app.get('/request',(req,res) => {
+    const query = `SELECT * FROM ServicesOffered`
+    db.all(query, (err,rows) => {
+        if (err) {
+            console.error('error getting services info:', err);
+            res.status(500).send("error logging out");
+        } else {
+            res.json(rows);
+        }
+});
+});
+
+
 // start the server
 const PORT = 5000;
 app.listen(PORT, () => {
