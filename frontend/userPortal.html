@@ -14,9 +14,11 @@
             <h3>Menu Options</h3>
                 <p><button onclick="editProfile()"> Edit Profile </button></p>
             
-                <p><button onclick="services()"> Request Service </button></p>
+               <p><button onclick="requestServices()"> Request Service </button></p>
             
-                <p><button> View Services </button></p>
+                <p><button onclick = "viewServices()"> View Services </button></p>
+
+                <p><button onclick = "viewPayments()"> View Payments</button></p>
       
            <button onclick="logout()"> Log Out </button>
            <p><button onclick="deleteAccount()"> Delete Profile </button></p>
@@ -33,8 +35,16 @@
             window.location.href = 'adminProfile.html'
         }
 
-        function services(){
-            window.location.href = 'adminServices.html'
+       function requestServices(){
+            window.location.href = 'userRequest.html'
+        }
+
+        function viewServices(){
+            window.location.href = 'userServices.html'
+        }
+
+        function viewPayments(){
+            window.location.href = 'userReceipts.html'
         }
 
         function logout(){
