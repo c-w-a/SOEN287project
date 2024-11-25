@@ -1,9 +1,18 @@
 
 const express = require('express');
+const session = require('express-session');
 const sqlite3 = require('sqlite3');
 const path = require('path'); // using this to get the path, so it's dynamic for anyone using it
 
 const app = express();
+
+// configure session
+app.use(session({
+    secret: 'secretkey',
+    resave: false,
+    saveUninitialized: false,
+    cookie: { secure: false } 
+  }));
 
 // middleware
 app.use(express.json());
@@ -210,11 +219,85 @@ app.post('/user-login', (req, res) => {
             res.status(401).send("Invalid email or password..");
         } else {
             if (user.password === password) {
+                req.session.userId = user.id;
+                req.session.email = user.email;
+                
                 console.log("user logged in:", user.email);
                 res.send("Login successful!");
             } else {
                 res.status(401).send("Invalid email or password..");
             }
+        }
+    });
+});
+
+// endpoint to get user info
+app.get('/user-info', (req, res) => {
+    const userId = req.session.userId;
+    const query = `SELECT * FROM Users WHERE id = ?`;
+    db.get(query, [userId], (err, row) => { 
+        if (err) {
+            console.error("error fetching user info:", err.message);
+            res.status(500).send("database error");
+        } else if (!row) {
+            res.status(404).send("no user info found..");
+        } else {
+            res.json(row);
+        }
+    });
+});
+
+
+// endpoint to edit user info
+app.put('/user-info', (req, res) => {
+    const { name, email, address, phone } = req.body;
+    const userId = req.session.userId;
+
+    const query = `
+        UPDATE Users
+        SET name = ?, email = ?, address = ?, phone = ?
+        WHERE id = ?
+    `;
+    db.run(query, [name, email, address, phone, userId], function (err) {
+        if (err) {
+            console.error("error updating info:", err.message);
+            res.status(500).send("database error");
+        } else {
+            res.send("user info updated successfully");
+        }
+    });
+});
+
+// endpoint to delete a user
+app.delete('/user-info', (req, res) => {
+    const userID = req.session.userId;
+    const query = `DELETE FROM Users WHERE id = ?`;
+
+    db.run(query, [userID], function (err) {
+        if (err) {
+            console.error('error deleting account:', err.message);
+            res.status(500).send('error deleting account');
+        } else {
+            req.session.destroy(err => {
+                if (err) {
+                    console.error('error deleting account:', err);
+                    res.status(500).send('error deleting account');
+                } else {
+                    res.send('account deleted successfully');
+                }
+            });
+        }
+    });
+    });
+
+// endpoint to log out user
+app.get('/logout', (req, res) => {
+    req.session.destroy(err => {
+        if (err) {
+            console.error("error logging out:", err);
+            res.status(500).send("error logging out");
+        } else {
+            res.send("logged out successfully");
         }
     });
 });
