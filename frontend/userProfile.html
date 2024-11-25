@@ -7,7 +7,7 @@
 
 </head>
 <body class = "profilestyle">
-  <a href = "index.html">
+  <a href = "userPortal.html">
      Go back
   </a>
     <h1> My Profile</h1>
@@ -21,66 +21,55 @@
   <p><strong>Email:</strong> <span id="userEmail"></span></p>
   <p><strong>Phone:</strong> <span id="userPhone"></span></p>
   <p><strong>Address:</strong> <span id="userAddress"></span></p>
-  <button onclick="editProfile()">Edit Profile</button>
+    <button onclick="editProfile()">Edit Profile</button>
   <button onclick="deleteAccount()">Delete Account</button>
 </div>
 
-<div class = "profilestyle">
-  <h3>Manage</h3>
- <button onclick = "location.href = 'userServices.html'">My Services</button>
-  <br>
-  <button onclick = "location.href = 'userReceipts.html'">My Payments</button>
-  <br>
-  <button onclick = "logoutUser()">Logout</button>
-
-</div>
-
   <script>
-
-    const email = localStorage.getItem('loggedIn');
-    const userArr = JSON.parse(localStorage.getItem('userArr'));
-            if (userArr === null) 
-            {
-                userArr = [];
-            }
-    const thisUser = userArr.find(user => user.email === email);
-
-    document.getElementById('userEmail').textContent = email;
-    document.getElementById('userName').textContent = thisUser.name;
-    document.getElementById('userAddress').textContent = thisUser.address;
-    document.getElementById('userPhone').textContent = thisUser.phone;
-    document.getElementById('userPassword').textContent = thisUser.password;
-
-    function editProfile() {
-            const newName = prompt("Enter new name", thisUser.name);
-            const newAddress = prompt("Enter new address", thisUser.address);
-            const newPhone = prompt("Enter new phone number", thisUser.phone);
-            
-            if (newName && newAddress && newPhone) {
-                thisUser.name = newName;
-                thisUser.address = newAddress;
-                thisUser.phone = newPhone;
-                localStorage.setItem('userArr', JSON.stringify(userArr));
-                location.reload();
-            }
+function editProfile(){
+            window.location.href = 'userEdit.html'
         }
+      
+async function loadUser(){
+      try {
+        const response = await fetch('/user-info');
+        if (response.ok){
+          const user = await response.json();
+          document.getElementById('userEmail').textContent = user.email || 'N/A';
+          document.getElementById('userName').textContent = user.name || 'N/A';
+          document.getElementById('userAddress').textContent = user.address || 'N/A';
+          document.getElementById('userPhone').textContent = user.phone || 'N/A';
+        } else {
+          alert('failed to load info')
+        }
+      }catch(error) {
+        console.error('error loading profile:',error);
+        alert('an error occured while loading the profile.');
+      }
+    }
 
-        function deleteAccount() 
+        async function deleteAccount() 
         {
             if (confirm("Are you sure you want to delete your account? This action cannot be undone.")) {
-                const updatedUserArr = userArr.filter(user => user.email !== email);
-                localStorage.setItem('userArr', JSON.stringify(updatedUserArr));
-                localStorage.removeItem('loggedIn');
-                window.location.href = 'index.html';
+              try {
+                    const response = await fetch('/user-info', {
+                        method: 'DELETE',
+                    });
+
+                    if (response.ok) {
+                        alert('account deleted successfully');
+                        window.location.href = 'index.html';
+                    } else {
+                        alert('failed to delete account');
+                    }
+                } catch (error) {
+                    console.error('error deleting user:', error);
+                    alert('an error occurred while deleting the user.');
+                }
             }
         }
 
-
-    function logoutUser()
-    {
-      localStorage.removeItem('loggedIn');
-      window.location.href = 'index.html'
-    }
+    window.onload = loadUser;
 
   </script>
 
