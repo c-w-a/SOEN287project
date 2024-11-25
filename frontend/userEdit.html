@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang = "en">
+    <head>
+        <title>Edit Profile</title>
+        <meta charset = "utf-8"/>
+        <link rel="stylesheet" href="styles.css">
+    </head>    
+       <header>
+        <a href = "userProfile.html">
+            Go back
+             </a>
+       </header>
+        <body class = "profilestyle"> 
+            
+           <h1>Edit Profile</h1>
+            <div class = "profilestyle">
+                <form id="editProfileForm" onsubmit="updateProfile(event)">
+                    <label>
+                        Full Name
+                        <br>
+                        <input type="name" id="nameInput" name="name" required>
+                    </label>
+                    <br>
+                    <label>
+                        Email
+                        <br>
+                        <input type = "email" id = "emailInput" name = "email" required>
+                    </label>
+                    <br>
+                    <label>
+                        Address
+                        <br>
+                        <input type="address" id="addressInput" name="address" required>
+                    </label>
+                    <br>
+                    <label>
+                        Phone Number
+                        <br>
+                        <input type="phone" id="phoneInput" name="phone" required>
+                    </label>
+                    <br><br>
+                    <input type="submit" value = "Update your profile"/>
+                </form>
+                
+            </div>
+        </body>
+        <script>
+            async function updateProfile(event){
+                event.preventDefault();
+
+                const name = document.getElementById('nameInput').value;
+                const email = document.getElementById('emailInput').value;
+                const address = document.getElementById('addressInput').value;
+                const phone = document.getElementById('phoneInput').value;
+                
+                try {
+                const response = await fetch('/user-info', {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        name,
+                        email,
+                        address,
+                        phone,
+                    }),
+                });
+
+                if (response.ok) {
+                    alert('profile updated successfully');
+                    window.location.href = "userProfile.html";
+                } else {
+                    alert('failed to update profile');
+                }
+            } catch (error) {
+                console.error('error updating profile:', error);
+                alert('an error occurred while updating the profile.');
+            }
+           
+            }
+
+        </script>
+</html>
