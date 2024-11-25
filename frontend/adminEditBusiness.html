@@ -22,7 +22,8 @@
         <p><strong>Email Address:</strong> <span id="businessEmail"></span></p>
         <p><strong>Phone Number:</strong> <span id="businessPhone"> </span></p>
         <p><strong>Address:</strong> <span id="businessAddress"></span></p>
-        <button onclick="editInfo()">Add / Modify Business Info</button>
+<!--         <button onclick="editInfo()">Add / Modify Business Info</button> -->
+        <button onclick="editProfile()">Modify Business Profile</button> 
         <button onclick="deleteInfo()">Reset Business Info</button>
     </div>
         
@@ -45,38 +46,41 @@
                 alert('An error occurred while loading the profile.');
             }
         }
-
-        async function editInfo() {
-            const businessName = prompt("What is the name of your business?");
-            const businessSlogan = prompt("What is your business slogan?");
-            const phoneNumber = prompt("What is your phone number?");
-            const emailAddress = prompt("What is your email address?");
-            const physicalAddress = prompt("What is your business address?");
-
-            try {
-                const response = await fetch('/business-info', {
-                    method: 'PUT',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        businessName,
-                        businessSlogan,
-                        emailAddress,
-                        phoneNumber,
-                        physicalAddress,
-                    }),
-                });
-
-                if (response.ok) {
-                    alert('profile updated successfully');
-                    window.location.href = 'adminPortal.html';
-                } else {
-                    alert('failed to update profile');
-                }
-            } catch (error) {
-                console.error('error updating profile:', error);
-                alert('an error occurred while updating the profile.');
-            }
+        
+        function editProfile(){
+            window.location.href = 'adminEditProfile.html'
         }
+        // async function editInfo() {
+        //     const businessName = prompt("What is the name of your business?");
+        //     const businessSlogan = prompt("What is your business slogan?");
+        //     const phoneNumber = prompt("What is your phone number?");
+        //     const emailAddress = prompt("What is your email address?");
+        //     const physicalAddress = prompt("What is your business address?");
+
+        //     try {
+        //         const response = await fetch('/business-info', {
+        //             method: 'PUT',
+        //             headers: { 'Content-Type': 'application/json' },
+        //             body: JSON.stringify({
+        //                 businessName,
+        //                 businessSlogan,
+        //                 emailAddress,
+        //                 phoneNumber,
+        //                 physicalAddress,
+        //             }),
+        //         });
+
+        //         if (response.ok) {
+        //             alert('profile updated successfully');
+        //             window.location.href = 'adminPortal.html';
+        //         } else {
+        //             alert('failed to update profile');
+        //         }
+        //     } catch (error) {
+        //         console.error('error updating profile:', error);
+        //         alert('an error occurred while updating the profile.');
+        //     }
+        // }
 
         async function deleteInfo() {
             if (confirm('sure you want to reset the business info?')) {
