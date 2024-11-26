@@ -3,62 +3,107 @@
 <head>
     <title>My Requested Services</title>
     <meta charset="utf-8"/>
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body class = "profilestyle">
     <header>
-        <a href = "userProfile.html">
+        <a href = "userPortal.html">
          Go back
           </a>
         <h1>My Requested Services</h1>
+        <div class = "profilestyle">
+            <h2>Confirmed Services</h2>
+            <div id="confirmed-services"></div>
+        
+            <h2>Pending Services</h2>
+            <div id="pending-services"></div>
+        
+
+        </div>
     </header>
-
-    <div id="requestsContainer">
-    <h2>Your Requested Services</h2>
-    <ul id="requestsList"></ul>
-
-    <script>
-    async function loadUserRequests() {
-        const userId = localStorage.getItem("userId");
-        const response = await fetch(`/user-requests/${userId}`);
+</body>
+<script>
+    async function loadRequestedServices() {
+    try {
+        const response = await fetch('/services');
 
         if (response.ok) {
-            const requests = await response.json();
-            const requestsList = document.getElementById("requestsList");
-
-            requests.forEach(request => {
-                const listItem = document.createElement("li");
-                listItem.textContent = `Service: ${request.name}, Status: ${request.status}, Date: ${request.requestDate}`;
-                const cancelButton = addCancelButton(request.id); // Add a cancel button
-                listItem.appendChild(cancelButton);
-                requestsList.appendChild(listItem);
-            });
+            const data = await response.json();
+            displayServices(data);
         } else {
-            console.error("Failed to load user requests.");
+            alert('Failed to load requested services.');
         }
+    } catch (error) {
+        console.error('Error loading requested services:', error);
+        alert('An error occurred while loading the services.');
+    }
+}
+
+function displayServices(data) {
+    const { confirmedServices, pendingServices } = data;
+
+    const confirmedServicesContainer = document.getElementById('confirmed-services');
+    const pendingServicesContainer = document.getElementById('pending-services');
+
+    confirmedServicesContainer.innerHTML = '';
+    pendingServicesContainer.innerHTML = '';
+
+    if (confirmedServices.length > 0) {
+        confirmedServices.forEach(service => {
+            const serviceElement = createServiceElement(service);
+            confirmedServicesContainer.appendChild(serviceElement);
+        });
+    } else {
+        confirmedServicesContainer.innerHTML = '<p>No confirmed services found.</p>';
     }
 
-    function addCancelButton(requestId) {
-        const cancelButton = document.createElement("button");
-        cancelButton.textContent = "Cancel Service";
-        cancelButton.onclick = () => cancelService(requestId);
-        return cancelButton;
+    if (pendingServices.length > 0) {
+        pendingServices.forEach(service => {
+            const serviceElement = createServiceElement(service);
+            pendingServicesContainer.appendChild(serviceElement);
+        });
+    } else {
+        pendingServicesContainer.innerHTML = '<p>No pending services found.</p>';
     }
+}
+
+function createServiceElement(service) {
+    const serviceElement = document.createElement('div');
+    serviceElement.classList.add('service-item');
+
+    serviceElement.innerHTML = `
+        <hr>
+        <strong>Service:</strong> ${service.serviceName} <br>
+        <strong>Date:</strong> ${service.dateTime} <br>
+        
+    `;
+
+    const cancelButton = document.createElement("button");
+    cancelButton.textContent = "Cancel Service";
+    cancelButton.onclick = () => cancelService(service.id);
+    serviceElement.appendChild(cancelButton);
+
+    return serviceElement;
+}
 
     async function cancelService(requestId) {
+        if (confirm("Are you sure you want to cancel your service?")) {
+            try{
         const response = await fetch(`/cancel-service/${requestId}`, { method: "DELETE" });
 
         if (response.ok) {
             alert("Service canceled successfully.");
-            location.reload(); // Refresh the page to update the list of services
+            location.reload(); 
         } else {
             alert("Failed to cancel the service. Please try again.");
         }
+    }catch (error){
+        alert("Error while cancelling service")
     }
+}
+}
 
-    document.addEventListener("DOMContentLoaded", loadUserRequests);
+window.onload = loadRequestedServices;
+
 </script>
-
-</div>
-</body>
 </html>
