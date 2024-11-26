@@ -315,7 +315,7 @@ app.get('/request',(req,res) => {
 });
 });
 
-// endpoint to log a service request (need to add table to db on git for this to work)
+// endpoint to log a service request 
 app.post('/request', (req,res) =>{
     const userID = req.session.userId;
     const {serviceID, dateTime} = req.body;
@@ -334,30 +334,35 @@ app.post('/request', (req,res) =>{
     });
 });
 
-// Endpoint to view user requests (userServices.html)
-   app.get('/user-requests/:userId', (req, res) => {
-    const userId = req.params.userId;
+// endpoint to view user requests 
+app.get('/services', (req, res) => {
+ 
+    const userID = req.session.userId;
     const query = `
-        SELECT Requests.id, Services.name, Services.description, Requests.requestDate, Requests.status
-       FROM Requests
-        JOIN Services ON Requests.serviceId = Services.id
-       WHERE Requests.userId = ?`;
-   db.all(query, [userId], (err, rows) => {
+        SELECT ServicesRequested.id, ServicesOffered.name AS serviceName, ServicesRequested.dateTime, ServicesRequested.confirmed, ServicesRequested.paid
+        FROM ServicesRequested
+        JOIN ServicesOffered ON ServicesRequested.serviceID = ServicesOffered.id
+        WHERE ServicesRequested.userID = ?
+    `;
+    
+    db.all(query, [userID], (err, rows) => {  
         if (err) {
-            console.error("Error fetching user requests:", err.message);
-            res.status(500).send("Database error");
-       } else {
-         res.json(rows);
-    }
-   });
-     });
+            console.error("Error fetching user requests:", err);
+            return res.status(500).send("Database error");
+        } else {
+            const confirmedServices = rows.filter(service => service.confirmed === 1);
+            const pendingServices = rows.filter(service => service.confirmed === 0);
+            res.json({ confirmedServices, pendingServices });
+        }
+    });
+});
 
 
 
- Endpoint to cancel a service (userServices.html)
+ // Endpoint to cancel a service (userServices.html)
  app.delete('/cancel-service/:requestId', (req, res) => {
     const requestId = req.params.requestId;
-    const query = `DELETE FROM Requests WHERE id = ?`;
+    const query = `DELETE FROM ServicesRequested WHERE id = ?`;
     db.run(query, [requestId], function (err) {
         if (err) {
             console.error("Error canceling service:", err.message);
