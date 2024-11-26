@@ -315,6 +315,98 @@ app.get('/request',(req,res) => {
 });
 });
 
+// Endpoint to view user requests (userServices.html)
+//   app.get('/user-requests/:userId', (req, res) => {
+ //   const userId = req.params.userId;
+//    const query = `
+ //       SELECT Requests.id, Services.name, Services.description, Requests.requestDate, Requests.status
+//        FROM Requests
+ //       JOIN Services ON Requests.serviceId = Services.id
+//        WHERE Requests.userId = ?`;
+//    db.all(query, [userId], (err, rows) => {
+//        if (err) {
+//            console.error("Error fetching user requests:", err.message);
+//            res.status(500).send("Database error");
+//        } else {
+//         res.json(rows);
+//     }
+ //   });
+  //   });
+
+
+
+// Endpoint to cancel a service (userServices.html)
+// app.delete('/cancel-service/:requestId', (req, res) => {
+//    const requestId = req.params.requestId;
+//    const query = `DELETE FROM Requests WHERE id = ?`;
+//    db.run(query, [requestId], function (err) {
+//        if (err) {
+  //          console.error("Error canceling service:", err.message);
+  //          res.status(500).send("Database error");
+  //      } else if (this.changes === 0) {
+  //          res.status(404).send("Service request not found.");
+ //       } else {
+ //           res.send("Service canceled successfully.");
+ //       }
+ //   });
+//   });
+
+
+
+// Endpoint to display business info on homepage (index.html)
+// app.get('/business-info', (req, res) => {
+//    const query = `SELECT * FROM Business WHERE id = 1`;
+//    db.get(query, (err, row) => {
+//        if (err) {
+//            console.error("Error fetching business info:", err.message);
+  //          res.status(500).send("Database error");
+  //      } else if (!row) {
+   //         res.status(404).send("No business info found.");
+  //      } else {
+ //           res.json(row);
+  //      }
+ //   });
+  //  });
+
+
+
+//   Endpoint to view payments (userReceipts.html)
+//   app.get('/user-payments/:userId', (req, res) => {
+//    const userId = req.params.userId;
+ //   const query = `
+//        SELECT Payments.id, Payments.amount, Payments.paymentDate, Payments.status, Services.name AS serviceName
+ //      FROM Payments
+ //    JOIN Requests ON Payments.requestId = Requests.id
+//     JOIN Services ON Requests.serviceId = Services.id
+//      WHERE Payments.userId = ?`;
+//    db.all(query, [userId], (err, rows) => {
+ //       if (err) {
+  //          console.error("Error fetching user payments:", err.message);
+ //           res.status(500).send("Database error");
+ //       } else {
+  //          res.json(rows);
+  //      }
+  //     });
+ //      });
+
+
+
+// Endpoint for search functionality (index.html)
+// app.get('/search-services', (req, res) => {
+ //   const { query } = req.query;
+//    const sqlQuery = `SELECT * FROM Services WHERE name LIKE ? OR description LIKE ?`;
+  //  const likeQuery = `%${query}%`;
+    //db.all(sqlQuery, [likeQuery, likeQuery], (err, rows) => {
+    //    if (err) {
+   //         console.error("Error searching services:", err.message);
+  //          res.status(500).send("Database error");
+    //    } else {
+    //        res.json(rows);
+ //       }
+  //   });
+  //    });
+
+
 
 // start the server
 const PORT = 5000;
