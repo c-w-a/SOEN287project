@@ -205,6 +205,53 @@
                 <br>
                 <input type="submit" value="Search">
 
+
+
+
+
+
+           <script>
+    async function loadBusinessInfo() {
+        const response = await fetch('/business-info');
+
+        if (response.ok) {
+            const businessInfo = await response.json();
+            document.getElementById('businessName').textContent = businessInfo.name;
+            document.getElementById('businessDescription').textContent = businessInfo.description;
+        } else {
+            console.error("Failed to load business info.");
+        }
+    }
+
+    document.addEventListener("DOMContentLoaded", loadBusinessInfo);
+</script>
+
+
+<script>
+    async function searchServices() {
+        const query = document.getElementById("serviceSearch").value;
+        const response = await fetch(`/search-services?query=${query}`);
+
+        if (response.ok) {
+            const results = await response.json();
+            const resultsContainer = document.getElementById("searchResults");
+
+            resultsContainer.innerHTML = ""; // Clear previous results
+            results.forEach(service => {
+                const listItem = document.createElement("li");
+                listItem.textContent = `Service: ${service.name}, Description: ${service.description}`;
+                resultsContainer.appendChild(listItem);
+            });
+        } else {
+            console.error("Failed to search services.");
+        }
+    }
+
+    document.getElementById("searchButton").addEventListener("click", searchServices);
+</script>
+
+
+
       </body>
 
     </html>
