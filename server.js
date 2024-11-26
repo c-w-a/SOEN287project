@@ -315,6 +315,26 @@ app.get('/request',(req,res) => {
 });
 });
 
+// endpoint to log a service request (need to add table to db on git for this to work)
+app.post('/request', (req,res) =>{
+    const userID = req.session.userId;
+    const {serviceID, dateTime} = req.body;
+
+    const query = `
+        INSERT INTO ServicesRequested (userID, serviceID, dateTime)
+        VALUES (?,?,?)
+    `;
+
+    db.run(query, [userID,serviceID,dateTime], function(err){
+        if (err) {
+            console.error("error saving service request:", err.message);
+            res.status(500).send("database error");
+        } else {
+            res.send("Service request submitted successfully");
+        }
+    });
+});
+
 // Endpoint to view user requests (userServices.html)
 //   app.get('/user-requests/:userId', (req, res) => {
  //   const userId = req.params.userId;
