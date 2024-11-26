@@ -103,6 +103,32 @@
         </footer>
 
            <script>
+                        
+            window.onload = function() 
+{
+    const loginstatus = document.getElementById("loginstatus");
+    const loggedIn = localStorage.getItem('loggedIn');
+
+    if (loggedIn) 
+        {
+        loginstatus.textContent = 'My Profile';
+        loginstatus.onclick = function() 
+        {
+            window.location.href = 'userProfile.html'; 
+        };
+    } 
+    else
+     {
+        loginstatus.textContent = 'Log In';
+        loginstatus.onclick = function() 
+        {
+            window.location.href = 'userLogIn.html'; 
+        };
+    }
+};
+
+
+           <script>
     async function loadBusinessInfo() {
         const response = await fetch('/business-info');
 
