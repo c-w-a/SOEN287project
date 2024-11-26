@@ -102,34 +102,31 @@
             
         </footer>
 
-          <script>
-    window.onload = async function() {
-        const loginButton = document.getElementById("loginstatus");
+         <script>
+                        
+            window.onload = function() 
+{
+    const loginstatus = document.getElementById("loginstatus");
+    const loggedIn = localStorage.getItem('loggedIn');
 
-        try {
-            const response = await fetch('/check-login', {
-                headers: {
-                    'logged-in': localStorage.getItem('loggedIn')
-                }
-            });
-            const { loggedIn } = await response.json();
+    if (loggedIn) 
+        {
+        loginstatus.textContent = 'My Profile';
+        loginstatus.onclick = function() 
+        {
+            window.location.href = 'userProfile.html'; 
+        };
+    } 
+    else
+     {
+        loginstatus.textContent = 'Log In';
+        loginstatus.onclick = function() 
+        {
+            window.location.href = 'userLogIn.html'; 
+        };
+    }
+};
 
-            if (loggedIn) {
-                loginButton.textContent = 'My Profile';
-                loginButton.onclick = function() {
-                    window.location.href = 'userProfile.html';
-                };
-            } else {
-                loginButton.textContent = 'Log In';
-                loginButton.onclick = function() {
-                    window.location.href = 'userLogIn.html';
-                };
-            }
-        } catch (error) {
-            console.error('Error checking login status:', error);
-        }
-    };
-</script>
 
 
 
