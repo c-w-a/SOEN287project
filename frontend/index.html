@@ -129,47 +129,81 @@
 
 
 
+ function Updatetitleandheader(){
+            document.getElementById("web").innerText = prompt("Enter company name:", "Company Name");
+            document.getElementById("header").innerHTML = `<h1><i>${document.getElementById("web").innerText}</i></h1>`;}
 
-           <script>
-    async function loadBusinessInfo() {
-        const response = await fetch('/business-info');
+            function Updateservices(){
+            document.getElementById("services").innerText = prompt("Enter services (separated by |):", "service1 | service2 | service3 | service4 | service5");}
 
-        if (response.ok) {
-            const businessInfo = await response.json();
-            document.getElementById('businessName').textContent = businessInfo.name;
-            document.getElementById('businessDescription').textContent = businessInfo.description;
-        } else {
-            console.error("Failed to load business info.");
+            function Updatewelcomemessageanddescription(){
+            document.getElementById("center").innerText = prompt("Enter welcome message:", "Welcome to our Service Company!");
+            document.getElementById("description").innerText = prompt("Enter company description:", "Service Company description.");}
+
+            function Updateservicedescriptions(){
+            for (let i = 1; i <= 5; i++) {
+                document.getElementById(`s${i}t`).innerText = prompt(`Enter title for service${i}:`, `service${i}`);
+                document.getElementById(`s${i}d`).innerText = prompt(`Enter description for service${i}:`, `service description${i}`);
+            }}
+
+            function Updateservicesteps(){
+            for (let i = 1; i <= 4; i++) {
+                document.getElementById(`s${i}`).innerText = prompt(`Enter step ${i}:`, `step${i}`);
+            }}
+
+            function Updatereasons(){
+            for (let i = 1; i <= 7; i++) {
+                document.getElementById(`r${i}`).innerText = prompt(`Enter reason ${i}:`, `reason${i}`);
+            }}
+
+            function Updatefooter(){
+            document.getElementById("e").innerText = prompt("Enter email address:", "email@example.com");
+            document.getElementById("cn").innerText = prompt("Enter contact number:", "123-456-7890");
         }
+
+        
+        function storeSelections() {
+        const checkboxes = document.querySelectorAll('input[name="requestedservice"]:checked');
+        const selectedServices = [];
+
+        checkboxes.forEach((checkbox) => {
+            selectedServices.push(checkbox.value);
+        });
+
+        localStorage.setItem('selectedServices', JSON.stringify(selectedServices));
+
+        
+        displaySelections();
     }
 
-    document.addEventListener("DOMContentLoaded", loadBusinessInfo);
-</script>
+    
+    function displaySelections() {
+        const selectedServices = JSON.parse(localStorage.getItem('selectedServices')) || [];
+        const displayDiv = document.getElementById("selectedServices");
 
-
-<script>
-    async function searchServices() {
-        const query = document.getElementById("serviceSearch").value;
-        const response = await fetch(`/search-services?query=${query}`);
-
-        if (response.ok) {
-            const results = await response.json();
-            const resultsContainer = document.getElementById("searchResults");
-
-            resultsContainer.innerHTML = ""; // Clear previous results
-            results.forEach(service => {
+        
+        displayDiv.innerHTML = "<h3>Your Selected Services:</h3>";
+        if (selectedServices.length > 0) {
+            const list = document.createElement("ul");
+            selectedServices.forEach(service => {
                 const listItem = document.createElement("li");
-                listItem.textContent = `Service: ${service.name}, Description: ${service.description}`;
-                resultsContainer.appendChild(listItem);
+                listItem.textContent = service;
+                list.appendChild(listItem);
             });
+            displayDiv.appendChild(list);
         } else {
-            console.error("Failed to search services.");
+            displayDiv.innerHTML += "<p>No services selected.</p>";
         }
     }
+    
+             
+         </script>
 
-    document.getElementById("searchButton").addEventListener("click", searchServices);
-</script>
 
+
+<input type="text" id="serviceSearch" name="serviceSearch" placeholder="e.g. Regular interior cleaning">
+                <br>
+                <input type="submit" value="Search">
 
       </body>
 
