@@ -12,5 +12,53 @@
           </a>
         <h1>My Requested Services</h1>
     </header>
+
+    <div id="requestsContainer">
+    <h2>Your Requested Services</h2>
+    <ul id="requestsList"></ul>
+
+    <script>
+    async function loadUserRequests() {
+        const userId = localStorage.getItem("userId");
+        const response = await fetch(`/user-requests/${userId}`);
+
+        if (response.ok) {
+            const requests = await response.json();
+            const requestsList = document.getElementById("requestsList");
+
+            requests.forEach(request => {
+                const listItem = document.createElement("li");
+                listItem.textContent = `Service: ${request.name}, Status: ${request.status}, Date: ${request.requestDate}`;
+                const cancelButton = addCancelButton(request.id); // Add a cancel button
+                listItem.appendChild(cancelButton);
+                requestsList.appendChild(listItem);
+            });
+        } else {
+            console.error("Failed to load user requests.");
+        }
+    }
+
+    function addCancelButton(requestId) {
+        const cancelButton = document.createElement("button");
+        cancelButton.textContent = "Cancel Service";
+        cancelButton.onclick = () => cancelService(requestId);
+        return cancelButton;
+    }
+
+    async function cancelService(requestId) {
+        const response = await fetch(`/cancel-service/${requestId}`, { method: "DELETE" });
+
+        if (response.ok) {
+            alert("Service canceled successfully.");
+            location.reload(); // Refresh the page to update the list of services
+        } else {
+            alert("Failed to cancel the service. Please try again.");
+        }
+    }
+
+    document.addEventListener("DOMContentLoaded", loadUserRequests);
+</script>
+
+</div>
 </body>
 </html>
