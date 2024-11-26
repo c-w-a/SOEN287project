@@ -12,5 +12,35 @@
   </a>
         <h1>My Payments</h1>
     </header>
+
+<div id="paymentsContainer">
+    <h2>Your Payment History</h2>
+    <ul id="paymentsList"></ul>
+</div>
+
+
+    <script>
+    async function loadUserPayments() {
+        const userId = localStorage.getItem("userId");
+        const response = await fetch(`/user-payments/${userId}`);
+
+        if (response.ok) {
+            const payments = await response.json();
+            const paymentsList = document.getElementById("paymentsList");
+
+            payments.forEach(payment => {
+                const listItem = document.createElement("li");
+                listItem.textContent = `Service: ${payment.serviceName}, Amount: $${payment.amount}, Status: ${payment.status}, Date: ${payment.paymentDate}`;
+                paymentsList.appendChild(listItem);
+            });
+        } else {
+            console.error("Failed to load payments.");
+        }
+    }
+
+    document.addEventListener("DOMContentLoaded", loadUserPayments);
+</script>
+
+
 </body>
 </html>
