@@ -73,15 +73,35 @@ function displayServices(services){
         serviceContainer.appendChild(serviceItem);
     });
 
-
-
 }
-
 
 
 async function handleRequest(event){
     event.preventDefault();
-
+    
+    const serviceID = document.querySelector('input[name="serviceId"]:checked').value; //SOURCE FOR THIS **QUERY SELECTOR
+    const dateTime = document.getElementById('date').value;
+    const request = {serviceID,dateTime}
+    
+    try {
+        const response = await fetch('/request', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            credentials: 'include',
+            body: JSON.stringify(request)
+        });
+        if(response.ok){
+            alert('Service request submitted successfully');
+        } else {
+            alert('Failed to submit your service request')
+        }
+    } catch (error) {
+        console.error('error submitting service request:', error);
+                alert('an error occurred while submitting the service request.');
+    }
+    document.getElementById('serviceRequest').reset();
 
 }
 window.onload = loadServices;
