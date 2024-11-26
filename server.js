@@ -425,6 +425,12 @@ app.post('/request', (req,res) =>{
      });
      });
 
+// Endpoint to log in and display correct button state (index.html)
+app.get('/check-login', (req, res) => {
+    const loggedIn = !!req.headers['logged-in']; 
+    res.json({ loggedIn });
+});
+
 
 
 // start the server
