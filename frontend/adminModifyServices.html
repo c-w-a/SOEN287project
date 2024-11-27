@@ -21,13 +21,6 @@
         <form action = "adminEditServices.html" onsubmit = "handleSubmit(event)">
 
             <div>
-                <label for="serviceID"> id of Service: 
-                    <br> 
-                <input type="text" id ="serviceID" name = "serviceID" placeholder="serviceID"> 
-            </label>
-            </div>
-
-            <div>
                 <label for="serviceName"> Service Name: 
                     <br> 
                 <input type="text" id ="serviceName" name = "serviceName" placeholder="Service"> 
@@ -71,10 +64,10 @@
             const description = document.getElementById('serviceDescription').value;
             const duration = document.getElementById('duration').value;
             const price = document.getElementById('price').value;
-            // const id = document.getElementById('serviceID').value * 1;
+            const serviceID = localStorage.getItem('serviceID');
 
             try {
-                const response = await fetch('/services-update/:id', {
+                const response = await fetch('/services-update/${serviceID}', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
                     body: new URLSearchParams({name, description, duration, price}),
