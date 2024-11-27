@@ -86,11 +86,11 @@ async function handleRequest(event){
             headers: {
                 'Content-Type': 'application/json'
             },
-            credentials: 'include',
             body: JSON.stringify(request)
         });
         if(response.ok){
             alert('Service request submitted successfully');
+            window.location.href = "userPortal.html";
         } else {
             alert('Failed to submit your service request')
         }
