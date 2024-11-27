@@ -1,46 +1,93 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>My Receipts </title>
+    <title>Payment Page </title>
     <meta charset="utf-8"/>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body class = "profilestyle">
     <header>
-        <a href = "userProfile.html">
+        <a href = "userPortal.html">
      Go back
   </a>
         <h1>My Payments</h1>
     </header>
-
-<div id="paymentsContainer">
-    <h2>Your Payment History</h2>
-    <ul id="paymentsList"></ul>
-</div>
-
+    <div class="profilestyle">
+        <h2>Unpaid</h2>
+        <div id="unpaid-services"></div> 
+        <br>
+        <button onclick = "userPay()">Pay</button>
+        <br>
+        <h2>Paid</h2>
+        <div id="paid-services"></div> 
+    </div>
 
     <script>
+        function userPay(){
+            window.location.href = 'userPayment.html'
+        }
+
+
+
     async function loadUserPayments() {
-        const userId = localStorage.getItem("userId");
-        const response = await fetch(`/user-payments/${userId}`);
+        try{
+        const response = await fetch('/payments');
 
         if (response.ok) {
             const payments = await response.json();
-            const paymentsList = document.getElementById("paymentsList");
-
-            payments.forEach(payment => {
-                const listItem = document.createElement("li");
-                listItem.textContent = `Service: ${payment.serviceName}, Amount: $${payment.amount}, Status: ${payment.status}, Date: ${payment.paymentDate}`;
-                paymentsList.appendChild(listItem);
-            });
+            displayPayments(payments);
         } else {
             console.error("Failed to load payments.");
         }
+    }catch (error){
+        console.error('Error loading payments:', error);
+        alert('An error occurred while loading the payments.');
+
+    }}
+
+    function displayPayments(data) {
+        const {paidServices, unpaidServices} = data;
+        const paidServicesContainer = document.getElementById('paid-services');
+        const unpaidServicesContainer = document.getElementById('unpaid-services');
+
+    paidServicesContainer.innerHTML = '';
+    unpaidServicesContainer.innerHTML = '';
+
+    if (paidServices.length > 0) {
+        paidServices.forEach(service => {
+            const paymentElement = createPaymentElement(service);
+            paidServicesContainer.appendChild(paymentElement);
+        });
+    } else {
+        paidServicesContainer.innerHTML = '<p>No paid services.</p>';
     }
 
-    document.addEventListener("DOMContentLoaded", loadUserPayments);
+    if (unpaidServices.length > 0) {
+        unpaidServices.forEach(service => {
+            const paymentElement = createPaymentElement(service);
+            unpaidServicesContainer.appendChild(paymentElement);
+        });
+    } else {
+        unpaidServicesContainer.innerHTML = '<p>No payments to be made.</p>';
+    }
+}
+
+function createPaymentElement(service) {
+    const paymentElement = document.createElement('div');
+    paymentElement.classList.add('service-item');
+
+    paymentElement.innerHTML = `
+        <hr>
+        <strong>Service:</strong> ${service.serviceName} <br>
+        <strong>Date:</strong> ${service.dateTime} <br>
+        <strong>Price:</strong> ${service.servicePrice}$<br>
+        
+    `;
+
+    return paymentElement;
+}
+
+    window.onload = loadUserPayments;
 </script>
-
-
 </body>
 </html>
