@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang = "en">
+<head>
+    <title> My Admin Profile </title>
+    <meta charset = "utf-8"/>
+    <link rel="stylesheet" href="styles.css">
+</head>
+    
+<body class = "profilestyle">
+    <a href = "adminEditServices.html">
+     Go Back
+    </a>
+    <h1> Edit Business Info</h1>
+    <div class = "profilestyle">
+        <img src = "https://cdn1.iconfinder.com/data/icons/heroicons-solid/20/user-circle-1024.png"
+            alt = "admin" width = "55" height = "50" />
+        <h2><span id = "adminUser"></span></h2>
+        <hr>
+        <h3> Business Details </h3>
+        
+        <form action = "adminEditServices.html" onsubmit = "handleSubmit(event)">
+
+            <div>
+                <label for="serviceName"> Service Name: 
+                    <br> 
+                <input type="text" id ="serviceName" name = "serviceName" placeholder="Service"> 
+            </label>
+            </div>
+
+            <div>
+                <label for="serviceDescription"> Service Description: 
+                    <br>
+                <input type="text" id ="serviceDescription" name = "serviceDescription" placeholder="Service Description">
+            </label>
+            </div>
+
+            <div>
+                <label for="duration"> Service Duration: 
+                    <br>
+                <input type="text" id ="duration" name = "duration" placeholder="Service Duration">
+            </label>
+            </div>
+
+            <div>
+                <label for="price"> Service Price: 
+                    <br>
+                <input type="text" id ="price" name = "price" placeholder="Service Price">
+            </label>
+            </div>
+
+            <div>
+                <input type="submit">
+            </div>
+        </form>
+
+
+    </div>
+    <script>
+
+        async function handleSubmit(event) {
+            event.preventDefault();
+            const name = document.getElementById('serviceName').value;
+            const description = document.getElementById('serviceDescription').value;
+            const duration = document.getElementById('duration').value;
+            const price = document.getElementById('price').value;
+           
+            try {
+                const response = await fetch('/services', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: new URLSearchParams({ name, description, duration, price}),
+                });
+
+                if (response.ok) {
+                    const result = await response.text();
+                    alert(result);
+                    window.location.href = 'adminEditServices.html';
+                } else {
+                    const error = await response.text();
+                    alert(error);
+                }
+            } catch (error) {
+                console.error('error during modification of profile:', error);
+                alert('error occurred.. please try again later..');
+            }
+        }
+
+    </script>
+    
+
+</body>
+</html>
