@@ -61,26 +61,8 @@ app.get('/business-info', (req, res) => {
     });
 });
 
-// // endpoint to update business info
-// app.put('/business-info', (req, res) => {
-//     const { businessName, businessSlogan, emailAddress, phoneNumber, physicalAddress } = req.body;
 
-//     const query = `
-//         UPDATE Business
-//         SET name = ?, slogan = ?, email = ?, phone = ?, address = ?
-//         WHERE id = 1
-//     `;
-//     db.run(query, [businessName, businessSlogan, emailAddress, phoneNumber, physicalAddress], function (err) {
-//         if (err) {
-//             console.error("error updating business info:", err.message);
-//             res.status(500).send("database error");
-//         } else {
-//             res.send("business info updated successfully");
-//         }
-//     });
-// });
-
-//for updating business info
+//endpoint for updating business info
 app.post('/business-info', (req, res) => {
     const { businessName, businessSlogan, emailAddress, phoneNumber, physicalAddress } = req.body;
 
@@ -133,7 +115,7 @@ app.post('/services', (req, res) => {
             console.error("Error adding service:", err.message);
             res.status(500).send("Database error");
         } else {
-            res.send({ success: true, id: this.lastID });
+            res.send("Successfully added the service!");
         }
     });
 });
@@ -156,11 +138,7 @@ app.get('/getservices', (req, res) => {
 app.post('/services-update/:id', (req, res) => {
     const id = req.params.id;
     const {name, description, duration, price} = req.body;
-
-    // if (!name || !price) {
-    //     return res.status(400).send("name and price required..");
-    // }
-
+    
     const query = `
         UPDATE ServicesOffered
         SET name = ?, description = ?, duration = ?, price = ?
@@ -170,56 +148,29 @@ app.post('/services-update/:id', (req, res) => {
         if (err) {
             console.error("error updating service:", err.message);
             res.status(500).send("database error");
- //       } else if (this.changes === 0) {
- //           res.status(404).send("service not found.");
+       } else if (this.changes === 0) {
+           res.status(404).send("service not found.");
         } else {
-            res.send("service updated successfully.");
+            res.send("Service updated successfully.");
         }
     });
 });
-// CURRENTLY WORKING ON THESE ENDPOINTS FOR ADDING SERVICES - NOT TESTED YET
-// // endpoint to update a service
-// app.put('/services/:id', (req, res) => {
-//     const { id } = req.params;
-//     const { name, description, duration, price } = req.body;
-
-//     if (!name || !price) {
-//         return res.status(400).send("name and price required..");
-//     }
-
-//     const query = `
-//         UPDATE ServicesOffered
-//         SET name = ?, description = ?, duration = ?, price = ?
-//         WHERE id = ?
-//     `;
-//     db.run(query, [name, description, duration, price, id], function (err) {
-//         if (err) {
-//             console.error("error updating service:", err.message);
-//             res.status(500).send("database error");
-//         } else if (this.changes === 0) {
-//             res.status(404).send("service not found.");
-//         } else {
-//             res.send("service updated successfully.");
-//         }
-//     });
-// });
 
 // endpoint to delete a service
-app.delete('/services/:id', (req, res) => {
-    const { id } = req.params;
-
+ app.delete('/delete-service/:id', (req, res) => {
+    const id = req.params.id;
     const query = `DELETE FROM ServicesOffered WHERE id = ?`;
     db.run(query, [id], function (err) {
         if (err) {
-            console.error("error deleting service:", err.message);
-            res.status(500).send("database error");
-        } else if (this.changes === 0) {
-            res.status(404).send("service not found.");
+            console.error("Error deleting service:", err.message);
+            res.status(500).send("Database error");
+      } else if (this.changes === 0) {
+            res.status(404).send("Service not found.");
         } else {
-            res.send("service deleted successfully.");
-        }
-    });
-});
+           res.send("Service deleted successfully.");
+       }
+   });
+   });
 
 // USER FEATURES:
 // endpoint for user signup
