@@ -396,6 +396,22 @@ app.get('/services', (req, res) => {
     });
 });
 
+ // Endpoint to cancel a service (userServices.html)
+ app.delete('/cancel-service/:requestId', (req, res) => {
+    const requestId = req.params.requestId;
+    const query = `DELETE FROM ServicesRequested WHERE id = ?`;
+    db.run(query, [requestId], function (err) {
+        if (err) {
+            console.error("Error canceling service:", err.message);
+            res.status(500).send("Database error");
+      } else if (this.changes === 0) {
+            res.status(404).send("Service request not found.");
+        } else {
+           res.send("Service canceled successfully.");
+       }
+   });
+   });
+
 // endpoint to view user payments
 app.get('/payments', (req, res) => {
     const userID = req.session.userId;
@@ -417,21 +433,21 @@ app.get('/payments', (req, res) => {
        });
      });
 
- // Endpoint to cancel a service (userServices.html)
- app.delete('/cancel-service/:requestId', (req, res) => {
-    const requestId = req.params.requestId;
-    const query = `DELETE FROM ServicesRequested WHERE id = ?`;
-    db.run(query, [requestId], function (err) {
+// endpoint to make a payment
+app.put('/make-payment', (req, res) => {
+    const { id } = req.body;
+
+    const query = `UPDATE ServicesRequested SET paid = 1 WHERE id = ?`;
+
+    db.run(query, [id], function (err) {
         if (err) {
-            console.error("Error canceling service:", err.message);
-            res.status(500).send("Database error");
-      } else if (this.changes === 0) {
-            res.status(404).send("Service request not found.");
+            console.error("Error updating services to paid:", err);
+            res.status(500).send("Database error while processing payment.");
         } else {
-           res.send("Service canceled successfully.");
-       }
-   });
-   });
+            res.send("Services updated as paid successfully.");
+        }
+    });
+});
 
 
 // Endpoint for search functionality (index.html)
