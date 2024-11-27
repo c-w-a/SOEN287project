@@ -434,22 +434,6 @@ app.get('/payments', (req, res) => {
    });
 
 
-
-// Endpoint to display business info on homepage (index.html)
- app.get('/business-info', (req, res) => {
-    const query = `SELECT * FROM Business WHERE id = 1`;
-    db.get(query, (err, row) => {
-        if (err) {
-            console.error("Error fetching business info:", err.message);
-            res.status(500).send("Database error");
-        } else if (!row) {
-           res.status(404).send("No business info found.");
-      } else {
-           res.json(row);
-        }
-    });
-   });
-
 // Endpoint for search functionality (index.html)
  app.get('/search-services', (req, res) => {
     const { query } = req.query;
