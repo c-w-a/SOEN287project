@@ -357,7 +357,26 @@ app.get('/services', (req, res) => {
     });
 });
 
-
+// endpoint to view user payments
+app.get('/payments', (req, res) => {
+    const userID = req.session.userId;
+    const query = `
+        SELECT ServicesRequested.id, ServicesOffered.name AS serviceName, ServicesOffered.price AS servicePrice, ServicesRequested.dateTime, ServicesRequested.confirmed, ServicesRequested.paid
+        FROM ServicesRequested
+        JOIN ServicesOffered ON ServicesRequested.serviceID = ServicesOffered.id
+        WHERE ServicesRequested.userID = ?
+    `;
+    db.all(query, [userID], (err, rows) => {
+       if (err) {
+         console.error("Error fetching user payments:", err.message);
+            res.status(500).send("Database error");
+       } else {
+        const paidServices = rows.filter(service => service.paid === 1);
+        const unpaidServices = rows.filter(service => service.paid === 0);
+        res.json({ paidServices, unpaidServices });
+        }
+       });
+     });
 
  // Endpoint to cancel a service (userServices.html)
  app.delete('/cancel-service/:requestId', (req, res) => {
@@ -391,29 +410,6 @@ app.get('/services', (req, res) => {
         }
     });
    });
-
-
-
- //  Endpoint to view payments (userReceipts.html)
-   app.get('/user-payments/:userId', (req, res) => {
-    const userId = req.params.userId;
-    const query = `
-        SELECT Payments.id, Payments.amount, Payments.paymentDate, Payments.status, Services.name AS serviceName
-       FROM Payments
-   JOIN Requests ON Payments.requestId = Requests.id
-     JOIN Services ON Requests.serviceId = Services.id
-      WHERE Payments.userId = ?`;
-    db.all(query, [userId], (err, rows) => {
-       if (err) {
-         console.error("Error fetching user payments:", err.message);
-            res.status(500).send("Database error");
-       } else {
-            res.json(rows);
-        }
-       });
-     });
-
-
 
 // Endpoint for search functionality (index.html)
  app.get('/search-services', (req, res) => {
