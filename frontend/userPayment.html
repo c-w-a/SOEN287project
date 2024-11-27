@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Payment Page </title>
+    <meta charset="utf-8"/>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class = "profilestyle">
+    <header>
+        <a href = "userReceipts.html">
+     Go back
+  </a>
+    </header>
+        <h1>Make a Payment </h1>
+        <div class="profilestyle">
+            <h2>Unpaid Services</h2>
+            <div id="unpaid-services"></div>
+            
+            <button onclick="calculateTotal()">Select</button>
+            <p id="total-amount">Total: 0$</p>
+    
+            <h2>Payment</h2>
+            <h4>All transactions are secure and encrypted.</h4>
+            <form id="paymentForm" onsubmit="handlePayment(event)">
+                <label>
+                    Name on Card
+                    <br>
+                    <input type = "name" id = "name" name = "name" required><br><br>
+                </label>
+                <label>
+                    Card Number
+                    <br>
+                    <input type="cardnumber" id="cardnumber" name="cardnumber" required><br><br>
+                </label>
+                <label>
+                    Expiry Date
+                    <br>
+                    <input type="expiry-date" id="expiry-date" name="expiry-date" placeholder="MM/YY" required><br><br>
+                </label>
+                <label>
+                    Security code (CVV)
+                    <br>
+                    <input type="cvv" id="cvv" name="cvv" required><br><br>
+                </label>
+                <input type="submit" value="Make Payment">
+            </form>
+        </div>
+    
+        <script>
+           async function loadUserPayments() {
+        try{
+        const response = await fetch('/payments');
+
+        if (response.ok) {
+            const payments = await response.json();
+            displayUnpaid(payments);
+        } else {
+            console.error("Failed to load payments.");
+        }
+    }catch (error){
+        console.error('Error loading payments:', error);
+        alert('An error occurred while loading the payments.');
+
+    }}
+    
+            function displayUnpaid(data) {
+                const {unpaidServices} = data;
+                const unpaidServicesContainer = document.getElementById('unpaid-services');
+                unpaidServicesContainer.innerHTML = '';
+    
+                if (unpaidServices.length > 0) {
+                    unpaidServices.forEach(service => {
+                        const serviceElement = document.createElement('div');
+                        
+                        const serviceInput = document.createElement('input');
+                        serviceInput.type = 'radio';
+                        serviceInput.name = 'serviceId';
+                        serviceInput.value = service.id;
+                        serviceInput.setAttribute('data-price', service.servicePrice);
+
+
+                        const serviceLabel = document.createElement('label');
+    
+    
+                        serviceLabel.innerHTML = `
+                                <strong>Service:</strong> ${service.serviceName} <br>
+                                <strong>Date:</strong> ${service.dateTime} <br>
+                                <strong>Price:</strong> ${service.servicePrice}$ <br>
+                            <hr>
+                        `;
+
+                        serviceElement.appendChild(serviceInput);
+                        serviceElement.appendChild(serviceLabel);
+                        unpaidServicesContainer.appendChild(serviceElement);
+                    });
+                } else {
+                    unpaidServicesContainer.innerHTML = '<p>No unpaid services found.</p>';
+                }
+            }
+    
+            function calculateTotal() {
+                const selected = document.querySelector('input[name="serviceId"]:checked');
+                const total = selected.getAttribute('data-price');
+                document.getElementById('total-amount').textContent = `Total: ${total}$`;
+            }
+    
+            async function handlePayment(event) {
+        event.preventDefault();
+
+        const selected = document.querySelector('input[name="serviceId"]:checked');
+        
+        if (!selected) {
+            alert("Select a service to pay for.");
+            document.getElementById("paymentForm").reset();
+        }
+
+        const selectedId = selected.value;
+
+        try {
+            const response = await fetch('/make-payment', {
+                method: 'PUT',
+                headers: {
+                'Content-Type': 'application/json'},
+                body: JSON.stringify({id:selectedId}) 
+            });
+
+            if (response.ok) {
+                alert("Payment successful. Services have been updated.");
+                window.location.href = "userReceipts.html"; 
+            } else {
+                alert("Payment failed. Please try again.");
+                document.getElementById("paymentForm").reset();
+            }
+        } catch (error) {
+            console.error('Error making payment:', error);
+            alert('An error occurred while processing the payment.');
+        }
+    }
+    
+            
+        window.onload = loadUserPayments;
+        </script>
+    </body>
+    </html>
