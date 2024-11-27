@@ -17,9 +17,8 @@
 
         <h2><span id = "adminUser"></span></h2>
     <h3> List of Offered Services</h3>
-    <div id = "displayServices"></div>
+    <div id = "service-dontainer"></div>
         </div>
-    <div class = "container">
         <h3>Manage</h3>
     <button onclick="addService()">Add services</button>
     <br>
@@ -30,75 +29,97 @@
 
     </body>
 <script>
-   
-   let serviceArr = JSON.parse(localStorage.getItem('serviceArr')) || [];
+   async function loadServices(){
+    try{
+        const response = await fetch('/getservices');
+        if(response.ok) {
+            const services = await response.json();
+            displayServices(services);
+        } else {
+            alert('Could not load services');
+        }
+    } catch (error) {
+        console.error('Error loading services:', error);
+    }
+}
 
-function displayServices() {
-    const display = document.getElementById('displayServices');
-    display.innerHTML = ''; 
+function displayServices(services){
+    const serviceContainer = document.getElementById('service-container');
+    serviceContainer.innerHTML = '';
 
-    serviceArr.forEach((service, index) => {
-        const serviceCard = document.createElement('div');
-        serviceCard.className = 'service-card';
+    services.forEach(item => {
+        const serviceItem = document.createElement('div');
 
-        serviceCard.innerHTML = `
-            <div class="serviceName">${service.name}</div>
-            <div>Description: ${service.description}</div>
-            <div>Duration: ${service.duration}</div>
-            <div>Price: ${service.price}</div>
+        const serviceInput = document.createElement('input');
+        serviceInput.type = 'checkbox';
+        serviceInput.id = `${item.id}`;
+        serviceInput.name = 'id';
+        serviceInput.value = item.id;
+        serviceInput.required = true;
+
+        const serviceLabel = document.createElement('label');
+        serviceLabel.htmlFor = `${item.id}`;
+
+        serviceLabel.innerHTML = `
+            <strong>${item.id}</strong><br>
+            <strong>${item.name}</strong><br>
+            Description: ${item.description}<br>
+            Duration: ${item.duration} Minutes<br>
+            Price: ${item.price}$
+            <br><br>
         `;
 
-        display.appendChild(serviceCard);
+        serviceItem.appendChild(serviceInput);
+        serviceItem.appendChild(serviceLabel);
+
+        serviceContainer.appendChild(serviceItem);
     });
+
 }
 
+    function addService() {
 
-function addService() {
-    const name = prompt("What service would you like to add?");
-    const description = prompt("Provide a brief description of the service.");
-    const duration = prompt("How long will this service take?");
-    const price = prompt("How much does this service cost?");
-
-    if (name && description && duration && price) {
-        const newService = { name, description, duration, price };
-        serviceArr.push(newService);
-        localStorage.setItem('serviceArr', JSON.stringify(serviceArr));
-        displayServices();
+        window.location.href = 'adminServices.html'
     }
-}
 
-function modifyService() {
-    const index = parseInt(prompt("Enter the service number to modify (1 for the first service):")) - 1;
+    //TO MODIFY SERVICES, DOES NOT WORK YET
+    // function modifyService() {
+    //     const selected = document.querySelector('input[name="id"]:checked').value; //SOURCE FOR THIS **QUERY SELECTOR
+
+    //     if (selected) {
+    //      window.location.href = 'adminModifyServices.html'
+    //     }
+
+    //     }
+
+    //TO DELETE SERVICES, DOES NOT WORK YET
+    // async function deleteService(){
+    //     const selected = document.querySelector('input[name="id"]:checked').value; //SOURCE FOR THIS **QUERY SELECTOR
+
+    //     if (selected) {
+    //         const id = [1];
+    //         if (confirm('sure you want to delete this service?')) {
+    //             try {
+    //                 const response = await fetch('/services', {
+    //                     method: 'DELETE',
+
+    //                 });
+
+    //                 if (response.ok) {
+    //                     alert('service deleted successfully');
+    //                 } else {
+    //                     alert('failed to delete service');
+    //                 }
+    //             } catch (error) {
+    //                 console.error('error service profile:', error);
+    //                 alert('an error occurred while deleting the service.');
+    //             }
+    //         }
+
+    //     }
+    // }
     
-    if (serviceArr[index]) {
-        const name = prompt("Modify service name.", serviceArr[index].name);
-        const description = prompt("Modify service description", serviceArr[index].description);
-        const duration = prompt("Modify service duration.", serviceArr[index].duration);
-        const price = prompt("Modify service price", serviceArr[index].price);
-
-        serviceArr[index] = { name, description, duration, price };
-        localStorage.setItem('serviceArr', JSON.stringify(serviceArr));
-        displayServices();
-    } else {
-        alert("Invalid service number.");
-    }
-}
-
-
-function deleteService() {
-    const index = parseInt(prompt("Enter the service number to delete (1 for the first service):")) - 1;
-
-    if (serviceArr[index]) {
-        serviceArr.splice(index, 1);
-        localStorage.setItem('serviceArr', JSON.stringify(serviceArr));
-        displayServices();
-    } else {
-        alert("Invalid service number.");
-    }
-}
-
-displayServices();
-
+    window.onload = loadServices;
  
 </script>
 </html>
