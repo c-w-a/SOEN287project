@@ -51,13 +51,10 @@ function displayServices(services){
 
         const serviceInput = document.createElement('input');
         serviceInput.type = 'radio';
-        serviceInput.id = `service-${item.id}`;
         serviceInput.name = 'serviceId';
         serviceInput.value = item.id;
-        serviceInput.required = true;
 
         const serviceLabel = document.createElement('label');
-        serviceLabel.htmlFor = `service-${item.id}`;
 
         serviceLabel.innerHTML = `
             <strong>${item.name}</strong><br>
@@ -79,7 +76,7 @@ function displayServices(services){
 async function handleRequest(event){
     event.preventDefault();
     
-    const serviceID = document.querySelector('input[name="serviceId"]:checked').value; //SOURCE FOR THIS **QUERY SELECTOR
+    const serviceID = document.querySelector('input[name="serviceId"]:checked').value; 
     const dateTime = document.getElementById('date').value;
     const request = {serviceID,dateTime}
     
