@@ -137,7 +137,46 @@ app.post('/services', (req, res) => {
         }
     });
 });
+// endpoint to load services
+app.get('/getservices', (req, res) => {
+    const query = `SELECT * FROM ServicesOffered`;
+    db.all(query, (err, row) => { 
+        if (err) {
+            console.error("Error fetching service info:", err.message);
+            res.status(500).send("Database error");
+        } else if (!row) {
+            res.status(404).send("No service info found..");
+        } else {
+            res.json(row);
+        }
+    });
+});
 
+//endpoint to update services
+app.post('/services-update/:id', (req, res) => {
+    const id = req.params.id;
+    const {name, description, duration, price} = req.body;
+
+    // if (!name || !price) {
+    //     return res.status(400).send("name and price required..");
+    // }
+
+    const query = `
+        UPDATE ServicesOffered
+        SET name = ?, description = ?, duration = ?, price = ?
+        WHERE id = ?
+    `;
+    db.run(query, [name, description, duration, price, id], function (err) {
+        if (err) {
+            console.error("error updating service:", err.message);
+            res.status(500).send("database error");
+ //       } else if (this.changes === 0) {
+ //           res.status(404).send("service not found.");
+        } else {
+            res.send("service updated successfully.");
+        }
+    });
+});
 // CURRENTLY WORKING ON THESE ENDPOINTS FOR ADDING SERVICES - NOT TESTED YET
 // // endpoint to update a service
 // app.put('/services/:id', (req, res) => {
@@ -165,22 +204,22 @@ app.post('/services', (req, res) => {
 //     });
 // });
 
-// // endpoint to delete a service
-// app.delete('/services/:id', (req, res) => {
-//     const { id } = req.params;
+// endpoint to delete a service
+app.delete('/services/:id', (req, res) => {
+    const { id } = req.params;
 
-//     const query = `DELETE FROM ServicesOffered WHERE id = ?`;
-//     db.run(query, [id], function (err) {
-//         if (err) {
-//             console.error("error deleting service:", err.message);
-//             res.status(500).send("database error");
-//         } else if (this.changes === 0) {
-//             res.status(404).send("service not found.");
-//         } else {
-//             res.send("service deleted successfully.");
-//         }
-//     });
-// });
+    const query = `DELETE FROM ServicesOffered WHERE id = ?`;
+    db.run(query, [id], function (err) {
+        if (err) {
+            console.error("error deleting service:", err.message);
+            res.status(500).send("database error");
+        } else if (this.changes === 0) {
+            res.status(404).send("service not found.");
+        } else {
+            res.send("service deleted successfully.");
+        }
+    });
+});
 
 // USER FEATURES:
 // endpoint for user signup
