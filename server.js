@@ -353,16 +353,20 @@ app.get('/services', (req, res) => {
 
 // endpoint to view user requests from admin side 
 app.get('/requested-services', (req, res) => {
-    const query = `SELECT * FROM ServicesRequested `;
+    const query = `SELECT ServicesRequested.id, ServicesRequested.dateTime,ServicesRequested.confirmed, ServicesOffered.name AS serviceName, Users.name AS userName
+                    FROM ServicesRequested 
+                    JOIN ServicesOffered ON ServicesRequested.serviceID = ServicesOffered.id
+                    JOIN Users ON ServicesRequested.userID = Users.id`;
     db.all(query, (err, rows) => {  
         if (err) {
             console.error("Error fetching user requests:", err);
             return res.status(500).send("Database error");
         } else {
-            res.json(rows);
+            const confirmedServices = rows.filter(service => service.confirmed === 1);
+            const unconfirmedServices = rows.filter(service => service.confirmed === 0);
+            res.json({ unconfirmedServices, confirmedServices });
         }
     });
-});
 
 
 // endpoint to view user payments
@@ -386,6 +390,22 @@ app.get('/payments', (req, res) => {
        });
      });
 
+// endpoint to make a payment
+app.put('/make-payment', (req, res) => {
+    const { id } = req.body;
+
+    const query = `UPDATE ServicesRequested SET paid = 1 WHERE id = ?`;
+
+    db.run(query, [id], function (err) {
+        if (err) {
+            console.error("Error updating services to paid:", err);
+            res.status(500).send("Database error while processing payment.");
+        } else {
+            res.send("Services updated as paid successfully.");
+        }
+    });
+});
+
  // Endpoint to cancel a service (userServices.html)
  app.delete('/cancel-service/:requestId', (req, res) => {
     const requestId = req.params.requestId;
@@ -401,44 +421,6 @@ app.get('/payments', (req, res) => {
        }
    });
    });
-
-
-
-// Endpoint to display business info on homepage (index.html)
- app.get('/business-info', (req, res) => {
-    const query = `SELECT * FROM Business WHERE id = 1`;
-    db.get(query, (err, row) => {
-        if (err) {
-            console.error("Error fetching business info:", err.message);
-            res.status(500).send("Database error");
-        } else if (!row) {
-           res.status(404).send("No business info found.");
-      } else {
-           res.json(row);
-        }
-    });
-   });
-
-// Endpoint for search functionality (index.html)
- app.get('/search-services', (req, res) => {
-    const { query } = req.query;
-    const sqlQuery = `SELECT * FROM Services WHERE name LIKE ? OR description LIKE ?`;
-    const likeQuery = `%${query}%`;
-    db.all(sqlQuery, [likeQuery, likeQuery], (err, rows) => {
-        if (err) {
-            console.error("Error searching services:", err.message);
-           res.status(500).send("Database error");
-      } else {
-       res.json(rows);
-        }
-     });
-     });
-
-// Endpoint to log in and display correct button state (index.html)
-app.get('/check-login', (req, res) => {
-    const loggedIn = !!req.headers['logged-in']; 
-    res.json({ loggedIn });
-});
 
 
 
