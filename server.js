@@ -61,25 +61,6 @@ app.get('/business-info', (req, res) => {
     });
 });
 
-// // endpoint to update business info
-// app.put('/business-info', (req, res) => {
-//     const { businessName, businessSlogan, emailAddress, phoneNumber, physicalAddress } = req.body;
-
-//     const query = `
-//         UPDATE Business
-//         SET name = ?, slogan = ?, email = ?, phone = ?, address = ?
-//         WHERE id = 1
-//     `;
-//     db.run(query, [businessName, businessSlogan, emailAddress, phoneNumber, physicalAddress], function (err) {
-//         if (err) {
-//             console.error("error updating business info:", err.message);
-//             res.status(500).send("database error");
-//         } else {
-//             res.send("business info updated successfully");
-//         }
-//     });
-// });
-
 //for updating business info
 app.post('/business-info', (req, res) => {
     const { businessName, businessSlogan, emailAddress, phoneNumber, physicalAddress } = req.body;
@@ -158,11 +139,7 @@ app.get('/getservices', (req, res) => {
 app.post('/services-update/:id', (req, res) => {
     const id = req.params.id;
     const {name, description, duration, price} = req.body;
-
-    // if (!name || !price) {
-    //     return res.status(400).send("name and price required..");
-    // }
-
+    
     const query = `
         UPDATE ServicesOffered
         SET name = ?, description = ?, duration = ?, price = ?
@@ -350,26 +327,6 @@ app.post('/request', (req,res) =>{
     });
 });
 
-// //endpoint to confirm a service request
-// app.post('/request-confirm/:id', (req,res) =>{
-//     const id = req.params.id;
-//     const query = `
-//         UPDATE ServicesRequested
-//         SET confirmed = ?
-//         WHERE id = ?
-//     `;
-//     db.run(query, [id], function (err) {
-//         if (err) {
-//             console.error("Error confirming service:", err.message);
-//             res.status(500).send("database error");
-//        } else if (this.changes === 0) {
-//            res.status(404).send("service not found.");
-//         } else {
-//             res.send("service confirmed successfully.");
-//         }
-//     });
-
-// })
 
 // endpoint to view user requests 
 app.get('/services', (req, res) => {
@@ -405,16 +362,6 @@ app.get('/requested-services', (req, res) => {
             res.json(rows);
         }
     });
-    // db.all(query, (err, rows) => {  
-    //     if (err) {
-    //         console.error("Error fetching user requests:", err);
-    //         return res.status(500).send("Database error");
-    //     } else {
-    //         const unconfirmedServices = rows.filter(service => service.confirmed === 1);
-    //         const confirmedServices = rows.filter(service => service.confirmed === 0);
-    //         res.json({unconfirmedServices, confirmedServices });
-    //     }
-    // });
 });
 
 
