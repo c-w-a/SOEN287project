@@ -19,9 +19,9 @@
             
                 <p><button class="button" onclick = "confirmOrders()" > Confirm Orders and Requested Services</button></p>
                 
-                <p><button class="button">Past Services</button></p>
+                <p><button class="button" onclick = pastServices()" >Past Services</button></p>
 
-                <p><button class="button">Bills</button></p>
+                <p><button class="button" onclick = bills()>Bills</button></p>
 
                 <p><button class="button" onclick="goBack()">Go Back to Webpage</button></p>
       
@@ -46,6 +46,14 @@
         function confirmOrders() {
             window.location.href = 'adminConfirmOrders.html';
         }
+
+        function pastOrders(){
+            window.location.href = 'adminPastOrders.html';
+        }
+
+        function bills(){
+            window.location.href = 'adminBills.html'
+        
         function logout(){
             localStorage.removeItem('loggedIn');
             window.location.href = "index.html";
