@@ -120,17 +120,32 @@ app.post('/services', (req, res) => {
     });
 });
 
-// endpoint to load services
+// endpoint to load offered services
 app.get('/getservices', (req, res) => {
-    const query = `SELECT * FROM ServicesRequested`;
-    db.get(query, (err, row) => { 
+    const query = `SELECT * FROM ServicesOffered`;
+    db.get(query, (err, rows) => { 
         if (err) {
             console.error("Error fetching service info:", err.message);
             res.status(500).send("Database error");
-        } else if (!row || row.length === 0) { // added a check to see if there are no records..
+        } else if (!rows || rows.length === 0) { // added a check to see if there are no records..
             res.status(404).send("No service info found..");
         } else {
-            res.json(row);
+            res.json(rows);
+        }
+    });
+});
+
+// endpoint to load requested services
+app.get('/services-requested', (req, res) => {
+    const query = `SELECT * FROM ServicesRequested`;
+    db.get(query, (err, rows) => { 
+        if (err) {
+            console.error("Error fetching service info:", err.message);
+            res.status(500).send("Database error");
+        } else if (!rows || rows.length === 0) { // added a check to see if there are no records..
+            res.status(404).send("No service info found..");
+        } else {
+            res.json(rows);
         }
     });
 });
