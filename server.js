@@ -61,8 +61,26 @@ app.get('/business-info', (req, res) => {
     });
 });
 
+// // endpoint to update business info
+// app.put('/business-info', (req, res) => {
+//     const { businessName, businessSlogan, emailAddress, phoneNumber, physicalAddress } = req.body;
 
-//endpoint for updating business info
+//     const query = `
+//         UPDATE Business
+//         SET name = ?, slogan = ?, email = ?, phone = ?, address = ?
+//         WHERE id = 1
+//     `;
+//     db.run(query, [businessName, businessSlogan, emailAddress, phoneNumber, physicalAddress], function (err) {
+//         if (err) {
+//             console.error("error updating business info:", err.message);
+//             res.status(500).send("database error");
+//         } else {
+//             res.send("business info updated successfully");
+//         }
+//     });
+// });
+
+//for updating business info
 app.post('/business-info', (req, res) => {
     const { businessName, businessSlogan, emailAddress, phoneNumber, physicalAddress } = req.body;
 
@@ -98,6 +116,7 @@ app.delete('/business-info', (req, res) => {
     });
 });
 
+
 // endpoint to add a new service
 app.post('/services', (req, res) => {
     const { name, description, duration, price } = req.body;
@@ -115,46 +134,35 @@ app.post('/services', (req, res) => {
             console.error("Error adding service:", err.message);
             res.status(500).send("Database error");
         } else {
-            res.send("Successfully added the service!");
+            res.send({ success: true, id: this.lastID });
         }
     });
 });
 
-// endpoint to load offered services
+// endpoint to load services
 app.get('/getservices', (req, res) => {
     const query = `SELECT * FROM ServicesOffered`;
-    db.get(query, (err, rows) => { 
+    db.all(query, (err, row) => { 
         if (err) {
             console.error("Error fetching service info:", err.message);
             res.status(500).send("Database error");
-        } else if (!rows || rows.length === 0) { // added a check to see if there are no records..
+        } else if (!row) {
             res.status(404).send("No service info found..");
         } else {
-            res.json(rows);
+            res.json(row);
         }
     });
 });
 
-// endpoint to load requested services
-app.get('/services-requested', (req, res) => {
-    const query = `SELECT * FROM ServicesRequested`;
-    db.get(query, (err, rows) => { 
-        if (err) {
-            console.error("Error fetching service info:", err.message);
-            res.status(500).send("Database error");
-        } else if (!rows || rows.length === 0) { // added a check to see if there are no records..
-            res.status(404).send("No service info found..");
-        } else {
-            res.json(rows);
-        }
-    });
-});
 
-//endpoint to update services
 app.post('/services-update/:id', (req, res) => {
     const id = req.params.id;
     const {name, description, duration, price} = req.body;
-    
+
+    // if (!name || !price) {
+    //     return res.status(400).send("name and price required..");
+    // }
+
     const query = `
         UPDATE ServicesOffered
         SET name = ?, description = ?, duration = ?, price = ?
@@ -162,17 +170,18 @@ app.post('/services-update/:id', (req, res) => {
     `;
     db.run(query, [name, description, duration, price, id], function (err) {
         if (err) {
-            console.error("error updating service:", err.message);
+            console.error("Error updating service:", err.message);
             res.status(500).send("database error");
        } else if (this.changes === 0) {
            res.status(404).send("service not found.");
         } else {
-            res.send("Service updated successfully.");
+            res.send("service updated successfully.");
         }
     });
 });
 
-// endpoint to delete a service
+
+ // Endpoint to delete a service 
  app.delete('/delete-service/:id', (req, res) => {
     const id = req.params.id;
     const query = `DELETE FROM ServicesOffered WHERE id = ?`;
@@ -187,6 +196,7 @@ app.post('/services-update/:id', (req, res) => {
        }
    });
    });
+
 
 // USER FEATURES:
 // endpoint for user signup
@@ -340,6 +350,27 @@ app.post('/request', (req,res) =>{
     });
 });
 
+// //endpoint to confirm a service request
+// app.post('/request-confirm/:id', (req,res) =>{
+//     const id = req.params.id;
+//     const query = `
+//         UPDATE ServicesRequested
+//         SET confirmed = ?
+//         WHERE id = ?
+//     `;
+//     db.run(query, [id], function (err) {
+//         if (err) {
+//             console.error("Error confirming service:", err.message);
+//             res.status(500).send("database error");
+//        } else if (this.changes === 0) {
+//            res.status(404).send("service not found.");
+//         } else {
+//             res.send("service confirmed successfully.");
+//         }
+//     });
+
+// })
+
 // endpoint to view user requests 
 app.get('/services', (req, res) => {
  
@@ -363,21 +394,29 @@ app.get('/services', (req, res) => {
     });
 });
 
- // Endpoint to cancel a service (userServices.html)
- app.delete('/cancel-service/:requestId', (req, res) => {
-    const requestId = req.params.requestId;
-    const query = `DELETE FROM ServicesRequested WHERE id = ?`;
-    db.run(query, [requestId], function (err) {
+// endpoint to view user requests from admin side 
+app.get('/requested-services', (req, res) => {
+    const query = `SELECT * FROM ServicesRequested `;
+    db.all(query, (err, rows) => {  
         if (err) {
-            console.error("Error canceling service:", err.message);
-            res.status(500).send("Database error");
-      } else if (this.changes === 0) {
-            res.status(404).send("Service request not found.");
+            console.error("Error fetching user requests:", err);
+            return res.status(500).send("Database error");
         } else {
-           res.send("Service canceled successfully.");
-       }
-   });
-   });
+            res.json(rows);
+        }
+    });
+    // db.all(query, (err, rows) => {  
+    //     if (err) {
+    //         console.error("Error fetching user requests:", err);
+    //         return res.status(500).send("Database error");
+    //     } else {
+    //         const unconfirmedServices = rows.filter(service => service.confirmed === 1);
+    //         const confirmedServices = rows.filter(service => service.confirmed === 0);
+    //         res.json({unconfirmedServices, confirmedServices });
+    //     }
+    // });
+});
+
 
 // endpoint to view user payments
 app.get('/payments', (req, res) => {
@@ -400,22 +439,38 @@ app.get('/payments', (req, res) => {
        });
      });
 
-// endpoint to make a payment
-app.put('/make-payment', (req, res) => {
-    const { id } = req.body;
-
-    const query = `UPDATE ServicesRequested SET paid = 1 WHERE id = ?`;
-
-    db.run(query, [id], function (err) {
+ // Endpoint to cancel a service (userServices.html)
+ app.delete('/cancel-service/:requestId', (req, res) => {
+    const requestId = req.params.requestId;
+    const query = `DELETE FROM ServicesRequested WHERE id = ?`;
+    db.run(query, [requestId], function (err) {
         if (err) {
-            console.error("Error updating services to paid:", err);
-            res.status(500).send("Database error while processing payment.");
+            console.error("Error canceling service:", err.message);
+            res.status(500).send("Database error");
+      } else if (this.changes === 0) {
+            res.status(404).send("Service request not found.");
         } else {
-            res.send("Services updated as paid successfully.");
+           res.send("Service canceled successfully.");
+       }
+   });
+   });
+
+
+
+// Endpoint to display business info on homepage (index.html)
+ app.get('/business-info', (req, res) => {
+    const query = `SELECT * FROM Business WHERE id = 1`;
+    db.get(query, (err, row) => {
+        if (err) {
+            console.error("Error fetching business info:", err.message);
+            res.status(500).send("Database error");
+        } else if (!row) {
+           res.status(404).send("No business info found.");
+      } else {
+           res.json(row);
         }
     });
-});
-
+   });
 
 // Endpoint for search functionality (index.html)
  app.get('/search-services', (req, res) => {
@@ -441,7 +496,7 @@ app.get('/check-login', (req, res) => {
 
 
 // start the server
-const PORT = 5000;
+const PORT = 3952;
 app.listen(PORT, () => {
 console.log(`server running on port ${PORT}`);
 });
