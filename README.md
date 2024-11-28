@@ -137,7 +137,7 @@ Here is a list of things implemented on user side and who it was done by:
  
 
 ## Install Guide:
-Our website should be deployed by first opening the index.html which is the home page of our website. From there, a client and admin can access their login/ sign up pages. The database is local. To install make sure all html files that belong to the frontend folder are in this folder. To use our website on the server, one will need to download Node.js, and from there download express, mysql, sqlite3, and express-session. 
+Our website should be deployed by first opening the index.html which is the home page of our website. From there, a client and admin can access their login/ sign up pages. The database is local. To install make sure all html files that belong to the frontend folder are in this folder. To use our website on the server, one will need to download Node.js and NPM, and from there download express, mysql, sqlite3, and express-session. Run the command 'nodemon server.js' from within the root directory of the project to start the server, then navigate to https://localhost:5000/
 
 ## User Guide:
 For an admin:
