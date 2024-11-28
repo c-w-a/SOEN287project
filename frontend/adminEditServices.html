@@ -6,12 +6,12 @@
     <link rel="stylesheet" href="style.css">
 </head>
 
-<body class = "profilestyle">
+<body class = "businessPortal">
 <a href = "adminPortal.html">
     Go Back
 </a>
 <h1> Services Offered </h1>
-<div class = "container">
+<div class = "businessProfile">
 <img src = "https://cdn1.iconfinder.com/data/icons/heroicons-solid/20/user-circle-1024.png"
         alt = "admin" width = "50" height = "50" />
 
@@ -20,7 +20,12 @@
         </div>
         <div id="service-container"></div>
 
+    <!-- <div class = "container"> -->
         <h3>Manage</h3>
+        <!-- <p><strong>Service Name:</strong><span id="serviceName"></span></p>
+        <p><strong>Service Description:</strong><span id="serviceDescription"></span></p>
+        <p><strong>Service Duration:</strong> <span id="duration"></span></p>
+        <p><strong>Service Price:</strong> <span id="price"> </span></p> -->
         <p><button onclick="addService()"> Add Service </button></p> 
 
     </div>
@@ -83,6 +88,32 @@ function displayServices(services){
     async function modifyService(serviceID) {
          localStorage.setItem('serviceID', serviceID);
          window.location.href = 'adminModifyServices.html'
+    
+        //     const name = document.getElementById('serviceName').value;
+        //     const description = document.getElementById('serviceDescription').value;
+        //     const duration = document.getElementById('duration').value;
+        //     const price = document.getElementById('price').value;
+        //     // const id = document.getElementById('serviceID').value * 1;
+
+        //  try {
+        //         const response = await fetch(`/services-update/${serviceID}`, {
+        //             method: 'POST',
+        //             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        //             body: new URLSearchParams({name, description, duration, price}),
+        //         });
+
+        //         if (response.ok) {
+        //             const result = await response.text();
+        //             alert(result);
+        //             window.location.href = 'adminEditServices.html';
+        //         } else {
+        //             const error = await response.text();
+        //             alert(error);
+        //         }
+        //     } catch (error) {
+        //         console.error('error during modification of profile:', error);
+        //         alert('error occurred.. please try again later..');
+        //     }
         }
 
         async function deleteService(serviceID) {
@@ -103,6 +134,39 @@ function displayServices(services){
 }
     
     window.onload = loadServices;
+
+
+// function modifyService() {
+//     const index = parseInt(prompt("Enter the service number to modify (1 for the first service):")) - 1;
+    
+//     if (serviceArr[index]) {
+//         const name = prompt("Modify service name.", serviceArr[index].name);
+//         const description = prompt("Modify service description", serviceArr[index].description);
+//         const duration = prompt("Modify service duration.", serviceArr[index].duration);
+//         const price = prompt("Modify service price", serviceArr[index].price);
+
+//         serviceArr[index] = { name, description, duration, price };
+//         localStorage.setItem('serviceArr', JSON.stringify(serviceArr));
+//         displayServices();
+//     } else {
+//         alert("Invalid service number.");
+//     }
+// }
+
+
+// function deleteService() {
+//     const index = parseInt(prompt("Enter the service number to delete (1 for the first service):")) - 1;
+
+//     if (serviceArr[index]) {
+//         serviceArr.splice(index, 1);
+//         localStorage.setItem('serviceArr', JSON.stringify(serviceArr));
+//         displayServices();
+//     } else {
+//         alert("Invalid service number.");
+//     }
+// }
+
+    // loadInfo();
 
  
 </script>
