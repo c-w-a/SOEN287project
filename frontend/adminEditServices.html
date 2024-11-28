@@ -3,7 +3,7 @@
 <head>
     <title> My Admin Profile </title>
     <meta charset = "utf-8"/>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body class = "profilestyle">
@@ -17,17 +17,17 @@
 
         <h2><span id = "adminUser"></span></h2>
     <h3> List of Offered Services</h3>
-    <div id = "service-dontainer"></div>
-
-     <h3>Manage</h3>
-    <button onclick="addService()">Add services</button>
-    <br>
         </div>
+        <div id="service-container"></div>
 
-    </body>
+        <h3>Manage</h3>
+        <p><button onclick="addService()"> Add Service </button></p> 
+
+    </div>
+
+
 <script>
-    //inspired by code by Lyne
-   async function loadServices(){
+async function loadServices(){
     try{
         const response = await fetch('/getservices');
         if(response.ok) {
@@ -52,8 +52,7 @@ function displayServices(services){
     });
 
 }
-
-function createServiceElement(service) {
+    function createServiceElement(service) {
         const serviceItem = document.createElement('div');
         serviceItem.classList.add('service-item');
 
@@ -75,19 +74,18 @@ function createServiceElement(service) {
         serviceItem.appendChild(deleteButton);
 
         return serviceItem;
-    }  
-
+    }   
     function addService() {
 
-        window.location.href = 'adminAddServices.html'
+        window.location.href = 'adminServices.html'
     }
 
     async function modifyService(serviceID) {
          localStorage.setItem('serviceID', serviceID);
          window.location.href = 'adminModifyServices.html'
-     }
+        }
 
-    async function deleteService(serviceID) {
+        async function deleteService(serviceID) {
         if (confirm("Are you sure you want to cancel your service?")) {
             try{
         const response = await fetch(`/delete-service/${serviceID}`, { method: "DELETE" });
@@ -105,6 +103,8 @@ function createServiceElement(service) {
 }
     
     window.onload = loadServices;
+
  
 </script>
+</body>
 </html>
