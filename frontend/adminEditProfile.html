@@ -3,55 +3,56 @@
 <head>
     <title> My Admin Profile </title>
     <meta charset = "utf-8"/>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="style.css">
 </head>
     
-<body class = "profilestyle">
+<body class = "businessPortal">
     <a href = "adminEditBusiness.html">
      Go Back
     </a>
     <h1> Edit Business Info</h1>
-    <div class = "profilestyle">
+    <div class = "businessProfile">
         <img src = "https://cdn1.iconfinder.com/data/icons/heroicons-solid/20/user-circle-1024.png"
             alt = "admin" width = "55" height = "50" />
         <h2><span id = "adminUser"></span></h2>
         <hr>
         <h3> Business Details </h3>
         
-        <form action = "adminEditProfile" onsubmit = "handleSubmit(event)">
+        <form action = "adminEditProfile" onsubmit = "handleSubmit(event)" class="forms">
 
             <div>
                 <label for="businessName"> Business Name: 
                     <br> 
-                <input type="text" id ="businessName" name = "businessName" placeholder="Business Name"> 
+                <input type="text" id ="businessName" name = "businessName" placeholder="Business Name" class="inputBox"> 
             </label>
+            <br>
             </div>
 
             <div>
                 <label for="businessSlogan"> Business Slogan: 
                     <br>
-                <input type="text" id ="businessSlogan" name = "businessSlogan" placeholder="Business Slogan">
+                <input type="text" id ="businessSlogan" name = "businessSlogan" placeholder="Business Slogan" class="inputBox">
             </label>
             </div>
 
             <div>
                 <label for="businessEmail"> Business Email: 
                     <br>
-                <input type="text" id ="businessEmail" name = "businessEmail" placeholder="Business Email">
+                <input type="text" id ="businessEmail" name = "businessEmail" placeholder="Business Email" class="inputBox" >
             </label>
             </div>
 
             <div>
                 <label for="businessPhone"> Business Phone Number: 
                     <br>
-                <input type="text" id ="businessPhone" name = "businessPhone" placeholder="Business Phone Number">
+                <input type="text" id ="businessPhone" name = "businessPhone" placeholder="Business Phone Number" class="inputBox">
             </label>
             </div>
 
             <div>
                 <label for="businessAddress"> Business Address: 
                     <br>
-                <input type="text" id ="businessAddress" name = "businessAddress" placeholder="Business Address">
+                <input type="text" id ="businessAddress" name = "businessAddress" placeholder="Business Address" class="inputBox">
             </label>
             </div>
 
