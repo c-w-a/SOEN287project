@@ -65,6 +65,9 @@ Homepage style:
 
 "How To Create a Search Bar," W3Schools,https://www.w3schools.com/howto/howto_css_searchbar.asp.
 
+Query:
+
+"SQL JOINS". https://www.w3schools.com/sql/sql_join.asp
 
 
 ## Features To Be Implemented For Next Deliverable:
