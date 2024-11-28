@@ -119,6 +119,7 @@ app.post('/services', (req, res) => {
         }
     });
 });
+
 // endpoint to load services
 app.get('/getservices', (req, res) => {
     const query = `SELECT * FROM ServicesOffered`;
@@ -126,7 +127,7 @@ app.get('/getservices', (req, res) => {
         if (err) {
             console.error("Error fetching service info:", err.message);
             res.status(500).send("Database error");
-        } else if (!row) {
+        } else if (!row || row.length === 0) { // added a check to see if there are no records..
             res.status(404).send("No service info found..");
         } else {
             res.json(row);

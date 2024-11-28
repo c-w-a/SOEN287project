@@ -25,10 +25,10 @@
 
 async function loadRequestedServices(){
     try{
-        const response = await fetch('/requested-services');
+        const response = await fetch('/getservices');
         if(response.ok) {
             const services = await response.json();
-            displayServices(data);
+            displayServices(services);
         } else {
             alert('Could not load requested services');
         }
