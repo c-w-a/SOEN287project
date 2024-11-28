@@ -39,11 +39,33 @@ To do the display of services:
 
 Kevin Chisholm, "Dynamic HTML with JavaScript," Kevin Chisholm Blog, accessed October 31, 2024, https://blog.kevinchisholm.com/javascript/dynamic-html-with-javascript/.
 
+
 Here are the sources used for deliverable #2:
 
 Previous notes from COMP353 (Databases) course were referenced for structuring and creating the sqlite database
 
 "How to Build a Fast and Lightweight API with Node.js and SQLite", S. Pandey, 2023, https://dextrop.medium.com/how-to-build-a-fast-and-lightweight-api-with-node-js-and-sqlite-676cbbec1b6a
+Verify login info:
+
+"Validation of Password and Username in Node.js and MySQL," Stack Overflow, https://stackoverflow.com/questions/53594691/validation-of-password-and-username-nodejs-mysql.
+
+"Basic Login System with Node.js, Express, and MySQL," CodeShack, https://codeshack.io/basic-login-system-nodejs-express-mysql/#creatingthelogintemplate.
+
+Session:
+
+"Understanding Session-Based Authentication in Node.js," Medium, https://medium.com/@anandam00/understanding-session-based-authentication-in-nodejs-bc2a7b9e5a0b.
+
+Display services in form:
+
+"Displaying Database Content on a Web Page Using HTML, CSS, and JavaScript," Codementor, https://www.codementor.io/@anthonyelam/displaying-database-content-on-a-web-page-using-html-css-and-javascript-2ejhvtl4cd.
+
+Homepage style:
+
+"CSS Website Layout," W3Schools, https://www.w3schools.com/css/css_website_layout.asp.
+
+"How To Create a Search Bar," W3Schools,https://www.w3schools.com/howto/howto_css_searchbar.asp.
+
+
 
 ## Features To Be Implemented For Next Deliverable:
 Business Side
