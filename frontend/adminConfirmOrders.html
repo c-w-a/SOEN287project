@@ -6,7 +6,7 @@
 </head>
 <body class = "profilestyle" >
 <header>
-    <a href = "adminEditServices.html">
+    <a href = "adminPortal.html">
         Go back
          </a>
        <h1>Orders Placed</h1>
@@ -28,7 +28,7 @@ async function loadRequestedServices(){
         const response = await fetch('/requested-services');
         if(response.ok) {
             const services = await response.json();
-            displayServices(data);
+            displayServices(services);
         } else {
             alert('Could not load requested services');
         }
@@ -62,7 +62,7 @@ function displayServices(data) {
             confirmedServicesContainer.appendChild(serviceElement);
         });
     } else {
-        confirmedServicesContainer.innerHTML = '<p>No pending services found.</p>';
+        confirmedServicesContainer.innerHTML = '<p>No confirmed services found.</p>';
     }
 
 }
@@ -75,9 +75,7 @@ function createServiceElement(service) {
         <hr>
         <strong>Service:</strong> ${service.serviceName} <br>
         <strong>Date:</strong> ${service.dateTime} <br>
-        <strong>User ID:</strong> ${service.userID} <br>
-        <strong>Service ID:</strong> ${service.serviceID} <br>
-        <strong>Confirmed (=1) or Unconfirmed (=0):</strong> ${service.confirmed} <br>
+        <strong>Client:</strong> ${service.userName} <br>
         `;
 
     const confirmButton = document.createElement("button");
@@ -108,22 +106,7 @@ function createServiceElement(service) {
 
 loadRequestedServices();
 
-async function loadinfo(){
-    try{
-        const response = await fetch('/requested-services');
-        if(response.ok) {
-            const services = await response.json();
-            // displayServices(data);
-        } else {
-            alert('Could not load requested services');
-        }
-    } catch (error) {
-        console.error('Error loading services:', error);
-        alert('An error occurred while loading the services.');
-    }
-}
 
-// loadinfo();
 </script>
 </body>
 </html>
