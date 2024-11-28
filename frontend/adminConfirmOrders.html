@@ -6,7 +6,7 @@
 </head>
 <body class = "profilestyle" >
 <header>
-    <a href = "adminPortal.html">
+    <a href = "adminEditBusiness.html">
         Go back
          </a>
        <h1>Orders Placed</h1>
@@ -25,10 +25,10 @@
 
 async function loadRequestedServices(){
     try{
-        const response = await fetch('/services-requested');
+        const response = await fetch('/requested-services');
         if(response.ok) {
             const services = await response.json();
-            displayServices(services);
+            displayServices(data);
         } else {
             alert('Could not load requested services');
         }
@@ -38,22 +38,33 @@ async function loadRequestedServices(){
     }
 }
 
-function displayServices(services) {
+function displayServices(data) {
+    const { unconfirmedServices, confirmedServices } = data;
+
     const unconfirmedServicesContainer = document.getElementById('unconfirmed-services');
     const confirmedServicesContainer = document.getElementById('confirmed-services');
 
     unconfirmedServicesContainer.innerHTML = '';
     confirmedServicesContainer.innerHTML = '';
 
-    services.forEach(service => {
-        const serviceElement = createServiceElement(service);
-
-        if (service.confirmed === 0) {
+    if (unconfirmedServices.length > 0) {
+        unconfirmedServices.forEach(service => {
+            const serviceElement = createServiceElement(service);
             unconfirmedServicesContainer.appendChild(serviceElement);
-        } else {
+        });
+    } else {
+        unconfirmedServicesContainer.innerHTML = '<p>No unconfirmed services found.</p>';
+    }
+
+    if (confirmedServices.length > 0) {
+        confirmedServices.forEach(service => {
+            const serviceElement = createServiceElement(service);
             confirmedServicesContainer.appendChild(serviceElement);
-        }
-    });
+        });
+    } else {
+        confirmedServicesContainer.innerHTML = '<p>No pending services found.</p>';
+    }
+
 }
 
 function createServiceElement(service) {
@@ -77,22 +88,22 @@ function createServiceElement(service) {
     return serviceElement;
 }
 
-async function confirmService(requestId) {
-    if (confirm("Are you sure you want to confirm this service?")) {
-        try{
-            const response = await fetch(`/request-confirm/${requestId}`, 
-            { method: "PUT" });
+    async function confirmService(requestId) {
+        if (confirm("Are you sure you want to confirm this service?")) {
+            try{
+        const response = await fetch(`/request-confirm/${requestId}`, 
+        { method: "UPDATE" });
 
-            if (response.ok) {
-                alert("Service confirmed successfully.");
-                location.reload(); 
-            } else {
-                alert("Failed to confirm the service. Please try again.");
-            }
-        }catch (error){
-                alert("Error while confirming service")
+        if (response.ok) {
+            alert("Service confirmed successfully.");
+            location.reload(); 
+        } else {
+            alert("Failed to confirm the service. Please try again.");
         }
+    }catch (error){
+        alert("Error while confirming service")
     }
+}
 }
 
 loadRequestedServices();
