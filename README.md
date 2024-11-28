@@ -6,7 +6,8 @@ Lyne Seddaoui 40252125
 MD Azmain Jashim 40228746  
 Navpreet Nandra 40213630
 
-## Features Implemented:
+##DELIVERABLE 1
+### Features Implemented:
 -We were able to implement only a few features as we are pretty new to web development. 
 Here is a list of features we implemented on the client side, and by who it was done:
 
@@ -38,37 +39,6 @@ To do the display of services:
 "Display Dynamic Content HTML," Code Boxx, accessed October 31, 2024, https://code-boxx.com/display-dynamic-content-html/.
 
 Kevin Chisholm, "Dynamic HTML with JavaScript," Kevin Chisholm Blog, accessed October 31, 2024, https://blog.kevinchisholm.com/javascript/dynamic-html-with-javascript/.
-
-
-Here are the sources used for deliverable #2:
-
-Previous notes from COMP353 (Databases) course were referenced for structuring and creating the sqlite database
-
-"How to Build a Fast and Lightweight API with Node.js and SQLite", S. Pandey, 2023, https://dextrop.medium.com/how-to-build-a-fast-and-lightweight-api-with-node-js-and-sqlite-676cbbec1b6a
-Verify login info:
-
-"Validation of Password and Username in Node.js and MySQL," Stack Overflow, https://stackoverflow.com/questions/53594691/validation-of-password-and-username-nodejs-mysql.
-
-"Basic Login System with Node.js, Express, and MySQL," CodeShack, https://codeshack.io/basic-login-system-nodejs-express-mysql/#creatingthelogintemplate.
-
-Session:
-
-"Understanding Session-Based Authentication in Node.js," Medium, https://medium.com/@anandam00/understanding-session-based-authentication-in-nodejs-bc2a7b9e5a0b.
-
-Display services in form:
-
-"Displaying Database Content on a Web Page Using HTML, CSS, and JavaScript," Codementor, https://www.codementor.io/@anthonyelam/displaying-database-content-on-a-web-page-using-html-css-and-javascript-2ejhvtl4cd.
-
-Homepage style:
-
-"CSS Website Layout," W3Schools, https://www.w3schools.com/css/css_website_layout.asp.
-
-"How To Create a Search Bar," W3Schools,https://www.w3schools.com/howto/howto_css_searchbar.asp.
-
-Query:
-
-"SQL JOINS". https://www.w3schools.com/sql/sql_join.asp
-
 
 ## Features To Be Implemented For Next Deliverable:
 Business Side
@@ -102,6 +72,86 @@ Click on the login and create an account using the Sign Up page. Then, the clien
 On the home page, a client can search for a specific service and is able to request a service. (to be updated)
 By clicking the My Profile button at the top, the client is able to access and edit their information. 
 Clients are able to see in the Services and Payments page the service that they have requested. (to be implemented)
+Client can then log out and be brought back to the home page again. 
+
+
+
+
+
+
+##DELIVERABLE 2
+Here are the sources used for deliverable #2:
+
+Previous notes from COMP353 (Databases) course were referenced for structuring and creating the sqlite database
+
+"How to Build a Fast and Lightweight API with Node.js and SQLite", S. Pandey, 2023, https://dextrop.medium.com/how-to-build-a-fast-and-lightweight-api-with-node-js-and-sqlite-676cbbec1b6a
+Verify login info:
+
+"Validation of Password and Username in Node.js and MySQL," Stack Overflow, https://stackoverflow.com/questions/53594691/validation-of-password-and-username-nodejs-mysql.
+
+"Basic Login System with Node.js, Express, and MySQL," CodeShack, https://codeshack.io/basic-login-system-nodejs-express-mysql/#creatingthelogintemplate.
+
+Session:
+
+"Understanding Session-Based Authentication in Node.js," Medium, https://medium.com/@anandam00/understanding-session-based-authentication-in-nodejs-bc2a7b9e5a0b.
+
+Display services in form:
+
+"Displaying Database Content on a Web Page Using HTML, CSS, and JavaScript," Codementor, https://www.codementor.io/@anthonyelam/displaying-database-content-on-a-web-page-using-html-css-and-javascript-2ejhvtl4cd.
+
+Homepage style:
+
+"CSS Website Layout," W3Schools, https://www.w3schools.com/css/css_website_layout.asp.
+
+"How To Create a Search Bar," W3Schools,https://www.w3schools.com/howto/howto_css_searchbar.asp.
+
+Query:
+
+"SQL JOINS". https://www.w3schools.com/sql/sql_join.asp
+
+
+
+Here is a list of things implemented on business side and who it was done by:
+- All database creations and a few endpoint creations on business side in server.js were done by Chris.
+- Chris worked on admin login with popups to get information and implemented it to backend.
+- Chris also started the endpoints and the modify/add/delete service on the business side using popups.
+- Navpreet made the admin login use forms over pop-ups and implemented the backend according to this new frontend method.
+- Navpreet completed the modify/add/delete services in business side, implementing it to the backend, and making it accessible for user side as well.
+- Navpreet worked on styling of the website and created all pages that were missing in previous deliverable, even if there is no code in them.
+- Navpreet created a few endpoints for the features worked on above.
+- Lyne was able to get the confirm order page working at the last minute but we were unable to style it.
+
+Here is a list of things implemented on user side and who it was done by:
+- Lyne worked on most of the user endpoints and all the user features, getting the old ones connected to backend, and creating new ones as well, including:
+  -   userEdit.html
+  -   userLogin.html
+  -   userPayment.html
+  -   userPortal.html
+  -   userProfile.html
+  -   userReceipts.html
+  -   userRequest.html
+  -   userServices.html
+  -   userSignUp.html
+ 
+
+## Install Guide:
+Our website should be deployed by first opening the index.html which is the home page of our website. From there, a client and admin can access their login/ sign up pages. The database is local. To install make sure all html files that belong to the frontend folder are in this folder. To use our website on the server, one will need to download Node.js, and from there download express, mysql, sqlite3, and express-session. 
+
+## User Guide:
+For an admin:
+Click on the login button and log in using the password and username given to them. These are hardcoded in the database. 
+Then, the admin would have access to the Admin Options page to manage their business.
+Admin should first start by clicking the Business Information button to add their business details, such as the name, the email address, the phone number and their address. This will display all information on the homepage.
+Then, by clicking Go Back, admin are back to the Admin Options page. 
+They should then click on the Edit Services button to add services, modify them or even delete them. 
+They can then go back and view confirmed/unconfirmed orders and bills. 
+When this is all set up, admin can then log out and be brought to the home page again.
+
+For a client:
+Click on the login and create an account using the Sign Up page. Then, the client will be brought back to the home page, but they now have access to their profile.
+On the home page, a client can search for a specific service and is able to request a service. (to be updated)
+By clicking the My Profile button at the top, the client is able to access and edit their information. 
+Clients are able to see in the Services and Payments page the service that they have requested. In the services requested page they will see what services have been confirmed and which have not. And will also be able to cancel such services. In payments page, they can pay for their services using a form. 
 Client can then log out and be brought back to the home page again. 
 
 
