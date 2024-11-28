@@ -112,7 +112,8 @@ Query:
 
 
 Here is a list of things implemented on business side and who it was done by:
-- All database creations and a few endpoint creations on business side in server.js were done by Chris.
+- All database creations and most endpoints creations on business side in server.js were done by Chris.
+- Implemented backend code for admin login, user sign-up, user log-in, edit/modify/delete business info, edit/modify/delete service.
 - Chris worked on admin login with popups to get information and implemented it to backend.
 - Chris also started the endpoints and the modify/add/delete service on the business side using popups.
 - Navpreet made the admin login use forms over pop-ups and implemented the backend according to this new frontend method.
