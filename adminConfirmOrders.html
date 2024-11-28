@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<head>
+    <title> Confirm Services </title>
+    <meta charset = "utf-8"/>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class = "profilestyle" >
+<header>
+    <a href = "adminEditBusiness.html">
+        Go back
+         </a>
+       <h1>Orders Placed</h1>
+       <div class = "profilestyle">       
+          
+           <h2>Unconfirmed Services</h2>
+           <div id="unconfirmed-services"></div>
+          
+           <h2>Confirmed Services</h2>
+           <div id="confirmed-services"></div>
+
+       </div>
+</header>
+</body>
+<script>
+
+async function loadRequestedServices(){
+    try{
+        const response = await fetch('/requested-services');
+        if(response.ok) {
+            const services = await response.json();
+            displayServices(data);
+        } else {
+            alert('Could not load requested services');
+        }
+    } catch (error) {
+        console.error('Error loading services:', error);
+        alert('An error occurred while loading the services.');
+    }
+}
+
+function displayServices(data) {
+    const { unconfirmedServices, confirmedServices } = data;
+
+    const unconfirmedServicesContainer = document.getElementById('unconfirmed-services');
+    const confirmedServicesContainer = document.getElementById('confirmed-services');
+
+    unconfirmedServicesContainer.innerHTML = '';
+    confirmedServicesContainer.innerHTML = '';
+
+    if (unconfirmedServices.length > 0) {
+        unconfirmedServices.forEach(service => {
+            const serviceElement = createServiceElement(service);
+            unconfirmedServicesContainer.appendChild(serviceElement);
+        });
+    } else {
+        unconfirmedServicesContainer.innerHTML = '<p>No unconfirmed services found.</p>';
+    }
+
+    if (confirmedServices.length > 0) {
+        confirmedServices.forEach(service => {
+            const serviceElement = createServiceElement(service);
+            confirmedServicesContainer.appendChild(serviceElement);
+        });
+    } else {
+        confirmedServicesContainer.innerHTML = '<p>No pending services found.</p>';
+    }
+
+}
+
+function createServiceElement(service) {
+    const serviceElement = document.createElement('div');
+    serviceElement.classList.add('service-item');
+
+    serviceElement.innerHTML = `
+        <hr>
+        <strong>Service:</strong> ${service.serviceName} <br>
+        <strong>Date:</strong> ${service.dateTime} <br>
+        <strong>User ID:</strong> ${service.userID} <br>
+        <strong>Service ID:</strong> ${service.serviceID} <br>
+        <strong>Confirmed (=1) or Unconfirmed (=0):</strong> ${service.confirmed} <br>
+        `;
+
+    const confirmButton = document.createElement("button");
+    confirmButton.textContent = "Confirm Service";
+    confirmButton.onclick = () => confirmService(service.id);
+    serviceElement.appendChild(confirmButton);
+
+    return serviceElement;
+}
+
+    async function confirmService(requestId) {
+        if (confirm("Are you sure you want to confirm this service?")) {
+            try{
+        const response = await fetch(`/request-confirm/${requestId}`, 
+        { method: "UPDATE" });
+
+        if (response.ok) {
+            alert("Service confirmed successfully.");
+            location.reload(); 
+        } else {
+            alert("Failed to confirm the service. Please try again.");
+        }
+    }catch (error){
+        alert("Error while confirming service")
+    }
+}
+}
+
+loadRequestedServices();
+
+async function loadinfo(){
+    try{
+        const response = await fetch('/requested-services');
+        if(response.ok) {
+            const services = await response.json();
+            // displayServices(data);
+        } else {
+            alert('Could not load requested services');
+        }
+    } catch (error) {
+        console.error('Error loading services:', error);
+        alert('An error occurred while loading the services.');
+    }
+}
+
+// loadinfo();
+</script>
+</body>
+</html>
