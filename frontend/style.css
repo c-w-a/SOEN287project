@@ -70,7 +70,7 @@ div.profilestyle {
 }
 
 .adminLogin{
-    background-color: #cdcdc9;
+    background-color: rgba(7, 23, 39, 0.378);
     color: black;
     display: flex;
     flex-direction: column;
@@ -128,4 +128,31 @@ div.profilestyle {
 
     .inputBox{
         font-size: 16px;
+    }
+
+    .goBack{
+        background-color: rgba(9, 64, 71, 0.573);
+        font-family: 'Times New Roman', Times, serif;
+        color:white;
+        font-size: 12px;
+        text-align: left;
+        padding: 10px;
+        margin: 10px;
+        border: 1px solid black;
+        border-radius: 15px;
+    }
+
+    .userProfile{
+        background-color: rgba(7, 35, 39, 0.378);
+        color: black;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+    }
+
+    userPortal{
+        background-color: rgba(7, 35, 39, 0.378);
+
     }
