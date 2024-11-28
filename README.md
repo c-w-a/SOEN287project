@@ -39,6 +39,12 @@ To do the display of services:
 
 Kevin Chisholm, "Dynamic HTML with JavaScript," Kevin Chisholm Blog, accessed October 31, 2024, https://blog.kevinchisholm.com/javascript/dynamic-html-with-javascript/.
 
+Here are the sources used for deliverable #2:
+
+Previous notes from COMP353 (Databases) course were referenced for structuring and creating the sqlite database
+
+"How to Build a Fast and Lightweight API with Node.js and SQLite", S. Pandey, 2023, https://dextrop.medium.com/how-to-build-a-fast-and-lightweight-api-with-node-js-and-sqlite-676cbbec1b6a
+
 ## Features To Be Implemented For Next Deliverable:
 Business Side
 - Will need to create an array to store the business data given by admin in adminProfile, so that this data can then be used to display it on the website.
