@@ -3,15 +3,15 @@
 <head>
     <title> My Admin Profile </title>
     <meta charset = "utf-8"/>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="style.css">
 </head>
     
-<body class = "profilestyle">
+<body class = "businessPortal">
     <a href = "adminPortal.html">
      Go Back
     </a>
     <h1> Edit Business Info</h1>
-    <div class = "profilestyle">
+    <div class = "businessProfile">
         <img src = "https://cdn1.iconfinder.com/data/icons/heroicons-solid/20/user-circle-1024.png"
             alt = "admin" width = "55" height = "50" />
         <h2><span id = "adminUser"></span></h2>
@@ -22,10 +22,11 @@
         <p><strong>Email Address:</strong> <span id="businessEmail"></span></p>
         <p><strong>Phone Number:</strong> <span id="businessPhone"> </span></p>
         <p><strong>Address:</strong> <span id="businessAddress"></span></p>
-<!--         <button onclick="editInfo()">Add / Modify Business Info</button> -->
-        <button onclick="editProfile()">Modify Business Profile</button> 
-        <button onclick="deleteInfo()">Reset Business Info</button>
+      <button class="button" onclick="editProfile()">Modify Business Profile</button> 
+       <!-- <button onclick="editInfo()">Add / Modify Business Info</button> -->
+        <button class="button" onclick="deleteInfo()">Reset Business Info</button>
     </div>
+
         
     <script>
        async function loadInfo() {
@@ -46,41 +47,10 @@
                 alert('An error occurred while loading the profile.');
             }
         }
-        
+
         function editProfile(){
             window.location.href = 'adminEditProfile.html'
         }
-        // async function editInfo() {
-        //     const businessName = prompt("What is the name of your business?");
-        //     const businessSlogan = prompt("What is your business slogan?");
-        //     const phoneNumber = prompt("What is your phone number?");
-        //     const emailAddress = prompt("What is your email address?");
-        //     const physicalAddress = prompt("What is your business address?");
-
-        //     try {
-        //         const response = await fetch('/business-info', {
-        //             method: 'PUT',
-        //             headers: { 'Content-Type': 'application/json' },
-        //             body: JSON.stringify({
-        //                 businessName,
-        //                 businessSlogan,
-        //                 emailAddress,
-        //                 phoneNumber,
-        //                 physicalAddress,
-        //             }),
-        //         });
-
-        //         if (response.ok) {
-        //             alert('profile updated successfully');
-        //             window.location.href = 'adminPortal.html';
-        //         } else {
-        //             alert('failed to update profile');
-        //         }
-        //     } catch (error) {
-        //         console.error('error updating profile:', error);
-        //         alert('an error occurred while updating the profile.');
-        //     }
-        // }
 
         async function deleteInfo() {
             if (confirm('sure you want to reset the business info?')) {
