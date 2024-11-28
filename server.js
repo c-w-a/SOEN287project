@@ -123,7 +123,7 @@ app.post('/services', (req, res) => {
 // endpoint to load services
 app.get('/getservices', (req, res) => {
     const query = `SELECT * FROM ServicesOffered`;
-    db.all(query, (err, row) => { 
+    db.get(query, (err, row) => { 
         if (err) {
             console.error("Error fetching service info:", err.message);
             res.status(500).send("Database error");
