@@ -3,27 +3,29 @@
     <head>
         <title>Admin Portal</title>
         <meta charset = "utf-8"/>
-        <link rel="stylesheet" href="styles.css">
+        <link rel="stylesheet" href="style.css">
+
     </head>    
        
-        <body class = "profilestyle"> 
+        <body class = "adminPortal"> 
             
-           <h1>Admin Portal</h1>
-
-            <div class = "profilestyle">
+           <h1 class = "center">Admin Portal</h1>
+            <div class = "adminProfile">
+   
             <h3>Manage your Business</h3>
-               <p><button onclick="editProfile()">Business Information</button></p>
+               <p><button class="button" onclick="editProfile()">Business Information</button></p>
             
-                <p><button onclick="services()"> Edit Services </button></p>
-                <p><button onclick="confirmOrders()"> Confirm Services </button></p>
+                <p><button class="button" onclick="services()"> Edit Services </button></p>
             
-                <p><button>Requested Services</button></p>
+                <p><button class="button" onclick = "confirmOrders()" > Confirm Orders and Requested Services</button></p>
                 
-                <p><button>Past Services</button></p>
+                <p><button class="button">Past Services</button></p>
 
-                <p><button>Bills</button></p>
+                <p><button class="button">Bills</button></p>
+
+                <p><button class="button" onclick="goBack()">Go Back to Webpage</button></p>
       
-               <p><button onclick="goBack()"> Back to Webpage </button></p> 
+            <button onclick="logout()"> Log Out </button>
     </div>
         </body>
     <script>
@@ -34,15 +36,19 @@
         }
     }
         function editProfile(){
-            window.location.href = 'adminEditBusiness.html'
+            window.location.href = 'adminEditBusiness.html';
         }
-        function confirmOrders(){
-            window.location.href = 'adminConfirmOrders.html';
 
-        }
-        
         function services(){
-            window.location.href = 'adminEditServices.html'
+            window.location.href = 'adminEditServices.html';
+        }
+
+        function confirmOrders() {
+            window.location.href = 'adminConfirmOrders.html';
+        }
+        function logout(){
+            localStorage.removeItem('loggedIn');
+            window.location.href = "index.html";
         }
 
         function goBack(){
